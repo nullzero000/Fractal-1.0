@@ -1,0 +1,175 @@
+/* src/App.css */
+
+:root {
+  --bg-dark: #050505;
+  --accent: #4ecdc4;
+  --gold: #f1c40f;
+  --glass-bg: rgba(20, 20, 20, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000 80%);
+  color: #eee;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+.supramente-terminal {
+  max-width: 1000px; /* Un poco más estrecho para elegancia */
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrado vertical */
+}
+
+/* HEADER */
+.terminal-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 20px;
+}
+
+.glitch-title {
+  font-family: 'SF Mono', 'Courier New', monospace;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  font-weight: 400;
+  margin: 0;
+  color: #fff;
+}
+
+.system-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bio-select {
+  background: rgba(0,0,0,0.5);
+  color: var(--accent);
+  border: 1px solid var(--glass-border);
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  outline: none;
+  backdrop-filter: blur(10px);
+}
+
+/* --- NUEVO: PANTALLA DE VISUALIZACIÓN DE TEXTO --- */
+.input-display-container {
+  width: 100%;
+  max-width: 850px;
+  min-height: 100px;
+  margin-bottom: 30px;
+  
+  /* Glassmorphism */
+  background: rgba(10, 10, 10, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+}
+
+.live-text {
+  font-size: 2.5rem;
+  font-family: 'Times New Roman', serif; /* Serif para hebreo se ve mejor */
+  letter-spacing: 5px;
+  line-height: 1.2;
+  text-align: center;
+  word-break: break-word;
+  direction: rtl; /* Escritura derecha a izquierda */
+}
+
+.placeholder-text {
+  color: rgba(255,255,255,0.1);
+  font-family: 'SF Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  animation: pulse 2s infinite;
+}
+
+/* --- BOTÓN DE EJECUCIÓN --- */
+.action-area {
+  margin: 30px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.analyze-btn {
+  background: rgba(78, 205, 196, 0.1);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 15px 40px;
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  font-family: 'SF Mono', monospace;
+  border-radius: 50px; /* Píldora */
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.1);
+  backdrop-filter: blur(5px);
+  text-transform: uppercase;
+}
+
+.analyze-btn:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.6);
+  transform: scale(1.05);
+}
+
+.analyze-btn:active {
+  transform: scale(0.95);
+}
+
+/* --- CONTENEDOR DE RESULTADOS (POPOUT) --- */
+.results-popout {
+  width: 100%;
+  max-width: 900px;
+  overflow: hidden;
+  max-height: 0; /* Oculto por defecto */
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Animación suave iOS */
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.results-popout.visible {
+  max-height: 2000px; /* Suficiente para mostrar todo */
+  opacity: 1;
+  margin-top: 20px;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+/* Footer sutil */
+.terminal-footer {
+  margin-top: 60px;
+  opacity: 0.3;
+  font-size: 0.7rem;
+  font-family: monospace;
+}

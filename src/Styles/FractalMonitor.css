@@ -1,0 +1,129 @@
+/* src/Styles/FractalMonitor.css */
+
+.monitor-details {
+  margin-top: 30px;
+  border-top: 1px solid #333;
+  color: #666;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  width: 100%;
+  max-width: 850px;
+  cursor: pointer;
+}
+
+.monitor-summary {
+  padding: 15px 0;
+  outline: none;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.monitor-summary:hover {
+  color: #ccc;
+}
+
+.monitor-content {
+  padding: 15px;
+  background: #050505;
+  border-radius: 8px;
+  border: 1px solid #222;
+}
+
+/* Sistema de Grilla Responsivo */
+.monitor-row {
+  display: grid;
+  /* Escritorio: Layout original */
+  grid-template-columns: 40px 1fr 140px 60px;
+  gap: 15px;
+  align-items: start;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #1a1a1a;
+  padding-bottom: 8px;
+}
+
+/* Cabecera */
+.monitor-row.header {
+  border-bottom: 1px solid #444;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: bold;
+  align-items: center;
+}
+
+.col-level {
+  color: #555;
+}
+
+.col-chars {
+  color: #aaa;
+  letter-spacing: 2px;
+  word-break: break-word;
+  white-space: normal;
+  font-size: 0.9rem;
+}
+
+.col-rgb {
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: #666;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rgb-flex-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rgb-preview {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
+  /* Background color is dynamic inline */
+}
+
+.col-math {
+  text-align: right;
+  color: #888;
+  font-weight: bold;
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 600px) {
+  .monitor-row {
+    /* Layout condensado */
+    grid-template-columns: 30px 1fr 40px; 
+    gap: 10px;
+  }
+  
+  .col-rgb {
+    grid-column: 1 / -1; 
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    margin-top: 4px;
+    opacity: 0.7;
+    border-top: 1px dashed #222;
+    padding-top: 4px;
+  }
+
+  .rgb-flex-wrapper {
+    justify-content: flex-start;
+  }
+  
+  .col-chars {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+  
+  .monitor-row.header {
+      display: none; /* Ocultar cabecera en móvil para ahorrar espacio */
+  }
+}

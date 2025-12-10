@@ -1,0 +1,141 @@
+/* src/Styles/TacticalReadout.css */
+
+.tactical-container {
+  /* Variable dinámica recibida de React */
+  --base-bg: var(--base-color, #111);
+  
+  /* Glassmorphism robusto */
+  background-color: rgba(15, 15, 15, 0.85);
+  background-image: 
+    linear-gradient(180deg, rgba(30,30,30,0.4) 0%, rgba(0,0,0,0.8) 100%),
+    radial-gradient(circle at top right, var(--base-bg), transparent 70%);
+    
+  border: 1px solid rgba(255,255,255,0.15);
+  border-left: 2px solid var(--base-bg);
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8);
+  border-radius: 16px;
+  
+  padding: 30px;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  width: 100%;
+  max-width: 700px; 
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden; 
+  box-sizing: border-box;
+  transition: border-color 0.5s ease;
+}
+
+.tactical-nav {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 8px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 15px;
+  justify-content: center; /* Centrado para mejor UX móvil */
+}
+
+.tactical-tab {
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.5);
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  flex: 1 1 auto;
+  min-width: 60px;
+  text-align: center;
+}
+
+.tactical-tab:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.tactical-tab.active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border-color: rgba(255,255,255,0.2);
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* FIX: Aseguramos visibilidad total sin animaciones complejas */
+.tactical-content {
+  display: block; 
+  width: 100%;
+  opacity: 1; /* Forzamos visibilidad */
+}
+
+/* Sección Áurea */
+.golden-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px 0;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.golden-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.golden-count {
+  font-size: 0.65rem;
+  opacity: 0.5;
+  margin-top: 8px;
+  font-family: monospace;
+}
+
+.section-title {
+  font-size: 0.7rem;
+  color: #4ecdc4; /* Acento Cian */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  margin-top: 25px;
+  font-weight: 300;
+  padding: 0 10px;
+}
+
+.attr-grid {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  color: #aaa;
+  margin-top: 15px;
+  font-family: monospace;
+}
+
+.attr-item {
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.3);
+  text-transform: uppercase;
+}
