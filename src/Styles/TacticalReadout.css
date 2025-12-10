@@ -139,3 +139,22 @@
   background: rgba(0,0,0,0.3);
   text-transform: uppercase;
 }
+/* src/Styles/TacticalReadout.css */
+
+.tactical-container {
+  /* ... (código anterior igual) ... */
+  
+  position: relative;
+  
+  /* FIX: Cambiar 'hidden' por 'visible' o borrar la línea.
+     Esto permite que si el contenido es largo, estire la caja. */
+  overflow: visible; 
+  
+  box-sizing: border-box;
+  transition: border-color 0.5s ease;
+  
+  /* Aseguramos que el contenido respire */
+  height: auto;
+}
+
+/* ... (resto del código igual) ... */
