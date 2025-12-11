@@ -19,55 +19,130 @@
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
-  /* CENTRADO Y DIMENSIONES */
   width: 100%;
   max-width: 700px; 
-  margin: 0 auto; /* ESTO ES LO QUE CENTRA EL COMPONENTE */
-  
+  margin: 0 auto;
   position: relative;
-  overflow: visible; /* Fix para scroll móvil */
+  overflow: visible; 
   box-sizing: border-box;
   transition: border-color 0.5s ease;
   height: auto;
 }
 
+/* --- NAVEGACIÓN (BOTONES DE NIVEL) --- */
 .tactical-nav {
   display: flex;
   flex-wrap: wrap; 
-  gap: 8px;
+  gap: 10px; /* Más espacio entre botones */
   margin-bottom: 30px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 15px;
+  padding-bottom: 20px;
   justify-content: center;
 }
 
 .tactical-tab {
-  background: rgba(255,255,255,0.05);
-  color: rgba(255,255,255,0.5);
-  border: 1px solid transparent;
-  padding: 8px 16px;
+  background: rgba(20, 20, 20, 0.6);
+  color: #777;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 16px;
   cursor: pointer;
+  
+  /* Tipografía Técnica */
+  font-family: 'SF Mono', 'Courier New', monospace;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-radius: 6px;
-  transition: all 0.2s;
+  font-weight: 600;
+  
+  border-radius: 4px; /* Bordes más técnicos/cuadrados */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   flex: 1 1 auto;
-  min-width: 60px;
+  min-width: 90px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .tactical-tab:hover {
-  background: rgba(255,255,255,0.1);
-  color: #fff;
+  background: rgba(255,255,255,0.05);
+  color: #ccc;
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
 }
 
+/* ESTADO ACTIVO (High-Tech Glow) */
 .tactical-tab.active {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
   color: #fff;
-  border-color: rgba(255,255,255,0.2);
+  border-color: var(--base-bg); /* Usa el color del nivel */
+  box-shadow: 0 0 20px -5px var(--base-bg);
+  text-shadow: 0 0 10px var(--base-bg);
+}
+
+/* Línea indicadora inferior en activo */
+.tactical-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--base-bg);
+}
+
+/* --- FICHA DE CONTEXTO DEL NIVEL (MEJORADA) --- */
+.level-context-box {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(0,0,0,0.2) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--base-bg); /* Indicador de color sólido */
+  border-radius: 8px;
+  padding: 20px 25px;
+  margin-bottom: 30px;
+  animation: fadeIn 0.4s ease-out;
+  position: relative;
+}
+
+.context-header {
+  display: flex;
+  flex-direction: column; /* Apilado por defecto */
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 10px;
+  gap: 5px;
+}
+
+/* NOMBRE DEL MUNDO (Ej: BERIÁ) */
+.context-world {
+  color: #fff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 900; /* Extra Bold */
+  font-size: 1.4rem; /* Grande e impactante */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* FOCO (Ej: Chayá / Mente) */
+.context-focus {
+  color: var(--base-bg); /* Color del nivel */
+  font-family: 'SF Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
   font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* DESCRIPCIÓN OPERACIONAL */
+.context-desc {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300; /* Light para elegancia */
+  border-left: 1px solid rgba(255,255,255,0.1); /* Línea sutil */
+  padding-left: 15px;
+  margin-top: 5px;
 }
 
 .tactical-content {
@@ -76,7 +151,7 @@
   opacity: 1;
 }
 
-/* Sección Áurea */
+/* ... (El resto de estilos de Golden Section, Attr Grid y Torah se mantienen igual) ... */
 .golden-section {
   display: flex;
   flex-wrap: wrap;
@@ -142,7 +217,7 @@
   text-transform: uppercase;
 }
 
-/* --- ESTILOS DEL BLOQUE TORÁICO (RTL) --- */
+/* Torah Block */
 .torah-block {
     margin-top: 35px;
     background: rgba(0,0,0,0.3);
@@ -224,7 +299,16 @@
 }
 
 .meta-val.highlight {
-    color: #f1c40f; /* Dorado */
+    color: #f1c40f; 
+}
+
+/* Media Queries */
+@media (min-width: 600px) {
+  .context-header {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
 }
 
 @media (max-width: 600px) {
