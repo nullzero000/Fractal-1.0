@@ -3,46 +3,14 @@ import { analyzeFrequencyAndColor, parseRGB } from '../utils/spectralEngine';
 import { getSemanticsFromRGB } from '../utils/colorNamer'; 
 import '../Styles/TacticalReadout.css';
 
-// DICCIONARIO DE NIVELES (RE-MAPEO ESTRUCTURAL)
+// DICCIONARIO DE NIVELES
 const LEVEL_META = {
-  // El Input original (0) es ahora la Materia Física (Nivel 1)
-  0: { 
-    label: 'NV 1 (MATERIA)', 
-    world: "ASSIYÁ HA'TACHTONA", 
-    focus: 'Cuerpo / Nefesh', 
-    desc: 'La Letra como Forma. Verificación de si la Luz se sostiene. Dominio del Ego.' 
-  },
-  1: { 
-    label: 'NV 2 (ACCIÓN)', 
-    world: 'ASSIYÁ (ESPÍRITU)', 
-    focus: 'Ruach / Sendero 11-32', 
-    desc: 'La Letra como Fuerza. Primera Expansión. Rectificación a través de los actos.' 
-  },
-  2: { 
-    label: 'NV 3 (FORMACIÓN)', 
-    world: 'YETZIRÁ (ALMA)', 
-    focus: 'Neshamá / Emoción', 
-    desc: 'La Letra como Emoción. Flujo puro. Se establecen las Formas Arquetípicas.' 
-  },
-  3: { 
-    label: 'NV 4 (CREACIÓN)', 
-    world: 'BERIÁ (VIDA)', 
-    focus: 'Chayá / Mente', 
-    desc: 'Estructura Causal. La mente deja de proyectar trauma y se alinea con la Ley.' 
-  },
-  4: { 
-    label: 'NV 5 (EMANACIÓN)', 
-    world: 'ATZILUT (UNIDAD)', 
-    focus: 'Yechidá / Intención', 
-    desc: 'Máxima Coherencia. El mundo de la Voluntad pura y el Deseo de Otorgar.' 
-  },
-  // La Expansión Final (5) es ahora la Raíz (Nivel 0)
-  5: { 
-    label: 'RAÍZ', 
-    world: 'VOLUNTAD PURA (KETER)', 
-    focus: 'Eje 13', 
-    desc: 'El punto final de la Ascensión. La Fusión con la Voluntad. La Letra desaparece.' 
-  }
+  0: { label: 'NV 1 (MATERIA)', world: "ASSIYÁ HA'TACHTONA", focus: 'Cuerpo / Nefesh', desc: 'La Letra como Forma. Verificación de si la Luz se sostiene. Dominio del Ego.' },
+  1: { label: 'NV 2 (ACCIÓN)', world: 'ASSIYÁ (ESPÍRITU)', focus: 'Ruach / Sendero 11-32', desc: 'La Letra como Fuerza. Primera Expansión. Rectificación a través de los actos.' },
+  2: { label: 'NV 3 (FORMACIÓN)', world: 'YETZIRÁ (ALMA)', focus: 'Neshamá / Emoción', desc: 'La Letra como Emoción. Flujo puro. Se establecen las Formas Arquetípicas.' },
+  3: { label: 'NV 4 (CREACIÓN)', world: 'BERIÁ (VIDA)', focus: 'Chayá / Mente', desc: 'Estructura Causal. La mente deja de proyectar trauma y se alinea con la Ley.' },
+  4: { label: 'NV 5 (EMANACIÓN)', world: 'ATZILUT (UNIDAD)', focus: 'Yechidá / Intención', desc: 'Máxima Coherencia. El mundo de la Voluntad pura y el Deseo de Otorgar.' },
+  5: { label: 'RAÍZ', world: 'VOLUNTAD PURA (KETER)', focus: 'Eje 13', desc: 'El punto final de la Ascensión. La Fusión con la Voluntad.' }
 };
 
 const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, colorSystem }) => {
@@ -107,27 +75,18 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
 
       <div className="tactical-content">
         
-        {/* FICHA DE CONTEXTO DEL NIVEL */}
+        {/* CONTEXTO */}
         <div className="level-context-box">
             <div className="context-header">
                 <span className="context-world">{currentMeta.world}</span>
                 <span className="context-focus">// {currentMeta.focus}</span>
             </div>
-            <div className="context-desc">
-                {currentMeta.desc}
-            </div>
+            <div className="context-desc">{currentMeta.desc}</div>
         </div>
 
         {/* HEADER CROMÁTICO */}
-        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-            <span style={{ 
-                fontSize: '0.7rem', 
-                letterSpacing: '2px', 
-                color: '#fff', 
-                opacity: 0.8,
-                borderBottom: `1px solid ${baseColor}`,
-                paddingBottom: '5px'
-            }}>
+        <div className="chroma-header">
+            <span style={{color: '#fff', opacity:0.9, letterSpacing:'2px', fontSize:'0.7rem'}}>
                 RESONANCIA: <strong>{colorName.toUpperCase()}</strong> <span style={{opacity:0.5}}>({rgbString})</span>
             </span>
         </div>
@@ -141,9 +100,7 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
             
             return (
               <div key={char} className="golden-item">
-                <span style={getGlowStyle(color, size)}>
-                  {char}
-                </span>
+                <span style={getGlowStyle(color, size)}>{char}</span>
                 <span className="golden-count">x{frequencyMap[char]}</span>
               </div>
             );
@@ -152,11 +109,23 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
 
         {/* SÍNTESIS */}
         <div className="section-title">SINTESIS DE EJE: {analysis.dominant} ({dominantData?.name})</div>
+        
+        {/* GRID DE ATRIBUTOS (MEJORADO) */}
         <div className="attr-grid">
-          <span className="attr-item">ELEM: {dominantData?.element || '-'}</span>
-          <span className="attr-item">PLAN: {dominantData?.planet || '-'}</span>
-          <span className="attr-item">ARCANO: {dominantData?.tarot || '-'}</span>
+          <div className="attr-item">
+              <span className="attr-label">ELEM</span>
+              <span className="attr-val">{dominantData?.element || '-'}</span>
+          </div>
+          <div className="attr-item">
+              <span className="attr-label">PLAN</span>
+              <span className="attr-val">{dominantData?.planet || '-'}</span>
+          </div>
+          <div className="attr-item">
+              <span className="attr-label">ARCANO</span>
+              <span className="attr-val">{dominantData?.tarot || '-'}</span>
+          </div>
         </div>
+
         <div className="text-body">
           {dominantData?.energy}
         </div>
