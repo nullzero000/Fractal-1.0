@@ -1,229 +1,108 @@
 /* src/Styles/AnalysisTable.css */
 
 .analysis-container {
-  margin: 2rem auto;
-  max-width: 800px;
-  padding: 2rem;
-  
-  /* GLASSMORPHISM DARK (iOS Style) */
-  background: rgba(20, 20, 20, 0.65); /* Oscuro translúcido */
-  backdrop-filter: blur(20px) saturate(180%); /* El efecto "Frost" */
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  
-  /* Borde sutil y elegante */
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.15); /* Luz superior */
-  border-radius: 20px; /* Curva iOS */
-  
-  /* Sombra difusa y profunda */
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    
   width: 100%;
-  box-sizing: border-box;
-  
-  /* Tipografía UI limpia */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: #e0e0e0;
-  transition: transform 0.3s ease;
-}
-
-.analysis-container:hover {
-  /* Sutil elevación al interactuar */
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(78, 205, 196, 0.2); /* Brillo cian muy sutil */
+  max-width: 700px;
+  margin: 0 auto 30px auto; /* Centrado y margen inferior */
+  font-family: 'SF Mono', 'Courier New', monospace;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .analysis-title {
-  text-align: left;
-  color: #fff;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  font-weight: 300; /* Minimalista ligero */
-  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: #4ecdc4;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Indicador de estado (Punto brillante en vez de '>>') */
-.analysis-title::before {
-  content: '';
-  display: block;
-  width: 6px;
-  height: 6px;
-  background-color: #4ecdc4; /* Acento técnico */
-  border-radius: 50%;
-  box-shadow: 0 0 10px #4ecdc4;
+  border-bottom: 1px solid rgba(78, 205, 196, 0.3);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  text-align: center; /* Centramos el título */
 }
 
 .table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  /* Fondo interno aún más sutil */
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden; /* Para bordes redondeados */
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
 }
 
 .miluy-table {
   width: 100%;
-  min-width: 400px;
-  border-collapse: collapse; /* Elimina espacio entre celdas */
-  border-spacing: 0;
+  border-collapse: collapse;
+  color: #fff;
+  font-size: 0.8rem;
 }
 
-.miluy-table th, 
-.miluy-table td {
-  padding: 16px 20px;
-  text-align: center;
-  /* Líneas separadoras muy sutiles */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+.miluy-table th, .miluy-table td {
+  padding: 12px 15px;
+  text-align: center; /* Todo centrado por defecto */
 }
 
 .miluy-table th {
-  background: rgba(255, 255, 255, 0.03);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  letter-spacing: 1.5px;
-}
-
-/* Celdas específicas */
-.level-cell {
-  font-weight: 600;
-  color: #fff;
-  text-align: left !important;
-  font-size: 0.85rem;
-  /* El nivel sí usa monospace para alineación técnica */
-  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
-}
-
-.value-cell {
-  color: rgba(255, 255, 255, 0.5);
-  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
-}
-
-.reduced-cell {
+  background: rgba(255, 255, 255, 0.05);
+  color: #888;
   font-weight: bold;
-  font-size: 1rem;
-  color: #4ecdc4; /* Cian Brillante */
-  text-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
-  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Fila Hover Effect - Elegancia interactiva */
-.miluy-table tr:hover td {
+.miluy-table tbody tr {
+  transition: all 0.2s ease;
+  cursor: crosshair;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+
+.miluy-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.miluy-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Caja de Resumen Final */
-.summary-box {
-  background: rgba(78, 205, 196, 0.05); /* Tinte cian extremadamente sutil */
-  border: 1px solid rgba(78, 205, 196, 0.2);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 1.5rem;
-  text-align: center;
-  border-radius: 16px;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column; /* Apilado para elegancia */
-  align-items: center;
-  gap: 8px;
-  
-  /* Animación de entrada sutil */
-  animation: fadeIn 0.5s ease-out;
+/* Fila Activa */
+.active-row {
+  background: rgba(78, 205, 196, 0.1) !important;
+  box-shadow: inset 3px 0 0 #4ecdc4;
 }
 
-.summary-box span:first-child {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0.7;
+.active-row .level-cell { color: #4ecdc4; font-weight: bold; }
+.active-row .reduced-cell { color: #f1c40f; text-shadow: 0 0 10px rgba(241, 196, 15, 0.4); }
+
+/* SUMMARY BOX */
+.summary-box {
+  margin-top: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #aaa;
+  font-size: 0.8rem;
 }
 
 .final-number {
-  font-weight: 300; /* Thin pero grande */
-  font-size: 3rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f1c40f;
+  text-shadow: 0 0 15px rgba(241, 196, 15, 0.3);
   line-height: 1;
-  color: #f1c40f; /* Dorado */
-  /* Glow dorado sofisticado */
-  text-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
-  font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
 }
 
-/* Scrollbar invisible pero funcional (estilo iOS) */
-.table-wrapper::-webkit-scrollbar {
-  height: 4px;
-}
-.table-wrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Ajustes Móviles */
+/* Mobile Adjustments */
 @media (max-width: 600px) {
-  .analysis-container {
-      padding: 1.5rem;
-      border-radius: 16px;
+  .miluy-table th, .miluy-table td {
+    padding: 10px 5px;
+    font-size: 0.7rem;
   }
-  .miluy-table th, 
-  .miluy-table td {
-    padding: 12px 10px;
-    font-size: 0.8rem;
+  .summary-box {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
   }
-  .final-number {
-      font-size: 2.5rem;
-  }
-}
-/* src/Styles/AnalysisTable.css */
-
-/* ... (Mantén todo el código anterior igual hasta llegar a .miluy-table tr:hover) ... */
-
-/* REEMPLAZAR O AGREGAR ESTO PARA MEJOR UX */
-
-.miluy-table tbody tr {
-    transition: all 0.2s ease;
-    cursor: crosshair; /* Cursor técnico */
-}
-
-/* Efecto Hover Suave */
-.miluy-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-/* Fila Activa (Sincronizada con el Summary Box) */
-.active-row {
-    background: rgba(78, 205, 196, 0.1) !important; /* Luz Cian tenue */
-    box-shadow: inset 2px 0 0 #4ecdc4; /* Indicador izquierdo */
-}
-
-.active-row .level-cell {
-    color: #4ecdc4; /* Texto se ilumina */
-}
-
-.active-row .reduced-cell {
-    color: #f1c40f; /* El número se pone dorado */
-    text-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
-}
-
-/* Ajuste del Summary Box para evitar saltos de layout cuando cambia el texto */
-.summary-box span:first-child {
-    min-height: 1.2em; /* Reserva espacio */
-    transition: opacity 0.2s;
 }

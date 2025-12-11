@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 import '../Styles/AnalysisTable.css';
 
-// Recibimos activeLevel
 const AnalysisTable = ({ levels, activeLevel }) => {
   const [hoveredLevel, setHoveredLevel] = useState(null);
 
   if (!levels || levels.length === 0) return null;
 
-  // Lógica de Prioridad:
-  // 1. Si el usuario hace Hover en la tabla -> Muestra Hover.
-  // 2. Si no, muestra el Nivel seleccionado en el Tactical (activeLevel).
-  // 3. Si falla, muestra el Final.
-  
   const selectedLevelData = levels.find(l => l.level === activeLevel);
   const finalLevel = levels[levels.length - 1];
-  
   const displayData = hoveredLevel || selectedLevelData || finalLevel;
 
   return (
@@ -25,17 +18,20 @@ const AnalysisTable = ({ levels, activeLevel }) => {
         <table className="miluy-table">
           <thead>
             <tr>
-              <th>Nivel</th>
-              <th>Letras</th>
-              <th>Masa (Gem)</th>
-              <th>Esencia (1-9)</th>
+              <th>NIVEL</th>
+              <th>VOLUMEN</th> {/* Antes "Letras" */}
+              <th>DIVERSIDAD</th> {/* NUEVO: Únicas */}
+              <th>MASA (GEM)</th>
+              <th>ESENCIA (1-9)</th>
             </tr>
           </thead>
           <tbody>
             {levels.map((lvl) => {
-              // Determinamos si esta fila está activa (ya sea por hover o por selección en tactical)
               const isActive = (hoveredLevel && hoveredLevel.level === lvl.level) || 
                                (!hoveredLevel && activeLevel === lvl.level);
+              
+              // CÁLCULO DE LETRAS ÚNICAS (Set elimina duplicados)
+              const uniqueCount = new Set(lvl.chars).size;
 
               return (
                 <tr 
@@ -45,7 +41,13 @@ const AnalysisTable = ({ levels, activeLevel }) => {
                   className={isActive ? 'active-row' : ''}
                 >
                   <td className="level-cell">NIVEL {lvl.level}</td>
+                  
+                  {/* Volumen Total */}
                   <td style={{color: '#aaa'}}>{lvl.chars.length}</td>
+                  
+                  {/* Diversidad (Únicas) */}
+                  <td style={{color: '#4ecdc4', fontWeight:'bold'}}>{uniqueCount}</td>
+                  
                   <td className="value-cell">{lvl.totalValue}</td>
                   <td className="reduced-cell">{lvl.reducedValue}</td>
                 </tr>
