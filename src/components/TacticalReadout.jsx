@@ -21,7 +21,7 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
   const rgbString = `${r}, ${g}, ${b}`;
   const baseColor = mixedColor; 
 
-  // Datos Toráicos de la letra dominante
+  // Datos Toráicos con fallback seguro
   const torahData = dominantData.torah || { word: '?', phonetic: '?', cite: '?', bio: '?' };
 
   const sortedLetters = Object.keys(frequencyMap).sort((a, b) => frequencyMap[b] - frequencyMap[a]);
@@ -47,6 +47,7 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
   return (
     <div className="tactical-container" style={{ '--base-color': baseColor }}>
       
+      {/* NAVEGACIÓN */}
       <div className="tactical-nav">
         {levels.map((lvl) => (
           <button 
@@ -61,6 +62,7 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
 
       <div className="tactical-content">
         
+        {/* HEADER CROMÁTICO */}
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <span style={{ 
                 fontSize: '0.7rem', 
@@ -74,8 +76,8 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
             </span>
         </div>
 
+        {/* FRECUENCIA ÁUREA */}
         <div className="section-title">FRECUENCIA ÁUREA (TOP 5)</div>
-        
         <div className="golden-section">
           {top5.map((char, i) => {
             const size = Math.max(1.5, BASE_SIZE / Math.pow(GOLDEN_RATIO, i));
@@ -92,24 +94,22 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
           })}
         </div>
 
+        {/* SÍNTESIS */}
         <div className="section-title">SINTESIS DE EJE: {analysis.dominant} ({dominantData?.name})</div>
-        
         <div className="attr-grid">
           <span className="attr-item">ELEM: {dominantData?.element || '-'}</span>
           <span className="attr-item">PLAN: {dominantData?.planet || '-'}</span>
           <span className="attr-item">ARCANO: {dominantData?.tarot || '-'}</span>
         </div>
-
         <div className="text-body">
           {dominantData?.energy}
         </div>
 
-        {/* --- NUEVO BLOQUE: ORIGEN TORÁICO --- */}
+        {/* ORIGEN TORÁICO */}
         <div className="torah-block">
             <div className="torah-header">ORIGEN DE EJE (TORÁ & BIO)</div>
             <div className="torah-grid">
                 <div className="torah-word-box">
-                    {/* RTL CRÍTICO */}
                     <span className="hebrew-origin" dir="rtl" lang="he">{torahData.word}</span>
                     <span className="phonetic-origin">{torahData.phonetic}</span>
                 </div>
