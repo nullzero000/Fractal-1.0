@@ -1,0 +1,195 @@
+/* src/Styles/PathMonitor.css */
+
+.path-container {
+  width: 100%;
+  margin-top: 30px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.path-title {
+  font-size: 0.8rem;
+  color: #4ecdc4;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(78, 205, 196, 0.3);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Un poco más ancho */
+  gap: 20px;
+}
+
+/* TARJETA DEL SENDERO */
+.path-card {
+  /* Fondo más profundo */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #4ecdc4; /* Indicador lateral */
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.path-card:hover {
+  border-color: rgba(78, 205, 196, 0.5);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transform: translateY(-3px);
+}
+
+/* CABECERA: ID Y LETRA */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.path-id-tag {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #888;
+  background: rgba(0,0,0,0.4);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  letter-spacing: 1px;
+}
+
+.hebrew-large {
+  font-size: 2.5rem;
+  font-family: 'Times New Roman', serif;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  line-height: 0.8;
+}
+
+/* VISUALIZACIÓN SEFIRÓTICA (Diagrama de Nodos) */
+.sefirot-visual {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0 25px 0;
+  position: relative;
+}
+
+/* Línea conectora detrás */
+.sefirot-visual::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(78,205,196,0.1), rgba(78,205,196,0.8), rgba(78,205,196,0.1));
+  z-index: 0;
+}
+
+/* El Nodo (Esfera) */
+.sefira-node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 45%; /* Para asegurar espacio */
+}
+
+.orb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  /* Efecto Esfera 3D */
+  background: radial-gradient(circle at 30% 30%, #4ecdc4, #1a4d49);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.4), inset 0 0 5px rgba(255,255,255,0.5);
+  border: 1px solid #000;
+}
+
+.orb.target {
+  background: radial-gradient(circle at 30% 30%, #f1c40f, #5c4b08); /* Destino dorado */
+  box-shadow: 0 0 15px rgba(241, 196, 15, 0.4), inset 0 0 5px rgba(255,255,255,0.5);
+}
+
+.node-name {
+  font-size: 0.7rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.node-desc {
+  font-size: 0.6rem;
+  color: #888;
+  text-align: center;
+  font-family: monospace;
+  max-width: 100px;
+  line-height: 1.2;
+}
+
+/* Flecha central */
+.flow-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000;
+  color: #4ecdc4;
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  z-index: 2;
+}
+
+/* TOOL BOX */
+.function-box {
+  margin-top: 10px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+}
+
+.function-label {
+  display: block;
+  font-size: 0.6rem;
+  color: #4ecdc4;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.function-text {
+  font-size: 0.85rem;
+  color: #ddd;
+  line-height: 1.4;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: #555;
+  font-family: monospace;
+  font-size: 0.8rem;
+  border: 1px dashed #333;
+  border-radius: 8px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
