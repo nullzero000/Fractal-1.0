@@ -4,8 +4,6 @@
   width: 100%;
   margin-top: 40px;
   animation: fadeIn 0.5s ease-out;
-  
-  /* FIX DIMENSIONES: Igual que TacticalReadout */
   max-width: 700px;
   margin: 40px auto; 
 }
@@ -32,7 +30,7 @@
   background-color: rgba(10, 10, 10, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.15);
   
-  /* COLOR DINÁMICO: El borde izquierdo ahora usa el color de la letra */
+  /* COLOR DINÁMICO MAESTRO */
   border-left: 4px solid var(--path-color, #4ecdc4); 
   
   border-radius: 12px;
@@ -57,13 +55,15 @@
   flex-direction: column;
 }
 
+/* FIX: COLOR DINÁMICO FORZADO */
 .path-label {
   font-size: 0.6rem;
-  /* El color se inyecta inline en el JSX, pero definimos fallback */
-  color: #888; 
+  color: var(--path-color); /* Usa la variable de la tarjeta */
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 4px;
+  font-weight: bold;
+  opacity: 0.9;
 }
 
 .path-letter-name {
@@ -79,7 +79,6 @@
   font-family: 'Times New Roman', serif;
   color: #fff;
   line-height: 1;
-  /* Text-shadow inyectado inline en JSX */
 }
 
 .path-body {
@@ -128,7 +127,6 @@
   text-align: center;
 }
 
-/* La línea de flujo ahora usa el color dinámico */
 .flow-line {
   flex: 1;
   height: 2px;
@@ -150,7 +148,7 @@
   padding: 0 5px;
 }
 
-/* DIAGNOSTIC GRID */
+/* DIAGNOSTIC GRID (Luz/Sombra) */
 .diagnostic-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -162,12 +160,16 @@
   margin-bottom: 20px;
 }
 
+/* FIX: ALINEACIÓN CENTRADA */
 .diag-cell {
   background: rgba(15, 15, 15, 0.95);
   padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  align-items: center; /* Centrado horizontal del contenido flex */
+  text-align: center;  /* Centrado de texto */
+  justify-content: flex-start;
 }
 
 .diag-header {
@@ -177,6 +179,7 @@
   text-transform: uppercase;
   padding-bottom: 5px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  width: 100%; /* Para que la línea ocupe todo */
 }
 
 .diag-header.shadow { color: #ff6b6b; }
@@ -186,23 +189,28 @@
   font-size: 0.85rem;
   color: #ccc;
   line-height: 1.4;
+  font-weight: 300;
 }
 
 /* TOOL BOX */
 .tool-box {
   background: rgba(255, 255, 255, 0.03);
-  /* Borde izquierdo dinámico via JSX styles, pero definimos base */
-  border-left-width: 2px;
-  border-left-style: solid; 
+  /* Borde izquierdo dinámico */
+  border-left: 2px solid var(--path-color);
   padding: 15px;
   font-family: monospace;
   font-size: 0.8rem;
   color: #aaa;
+  display: flex; /* Para alinear etiqueta y texto */
+  align-items: baseline;
+  gap: 10px;
 }
 
+/* FIX: COLOR DINÁMICO TOOL */
 .tool-label {
   font-weight: bold;
-  margin-right: 8px;
+  color: var(--path-color);
+  white-space: nowrap; /* Evita que "TOOL:" se rompa */
 }
 
 .empty-state {

@@ -3,7 +3,6 @@ import { PATHS_OF_WISDOM } from '../data/pathsOfWisdom';
 import { HEBREW_DATA } from '../data/constants'; 
 import '../Styles/PathMonitor.css';
 
-// FIX: Recibimos getActiveColor como prop
 const PathMonitor = ({ inputString, getActiveColor }) => {
   
   const activePaths = useMemo(() => {
@@ -46,10 +45,7 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
       ) : (
         <div className="path-grid">
           {activePaths.map((path) => {
-            // FIX: Obtenemos el color dinámico del sendero/letra
             const pathColor = getActiveColor(path.hebrew_char);
-            
-            // Verificamos si el color es muy oscuro para ajustar el brillo del texto si es necesario
             const isDark = pathColor.includes('0, 0, 0') || pathColor.includes('10, 10, 10');
             const displayColor = isDark ? '#ffffff' : pathColor;
 
@@ -57,17 +53,15 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
               <div 
                 key={path.id} 
                 className="path-card"
-                // INYECCIÓN DE VARIABLE CSS: Esto permite usar el color en el CSS
+                // INYECCIÓN MAESTRA DEL COLOR: Todo el CSS hijo usa esto
                 style={{ '--path-color': displayColor }}
               >
                 
                 {/* 1. CABECERA */}
                 <div className="path-header-strip">
                   <div className="path-id-block">
-                      {/* Color dinámico aplicado al label */}
-                      <span className="path-label" style={{ color: displayColor }}>
-                        SENDERO {path.id}
-                      </span>
+                      {/* CSS se encarga del color con var(--path-color) */}
+                      <span className="path-label">SENDERO {path.id}</span>
                       <span className="path-letter-name">{path.letter.toUpperCase()}</span>
                   </div>
                   <div className="hebrew-glyph" style={{ textShadow: `0 0 15px ${displayColor}` }}>
@@ -79,7 +73,6 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
                   
                   {/* 2. DIAGRAMA DE FLUJO SEFIRÓTICO */}
                   <div className="sefirot-diagram">
-                      {/* Origen */}
                       <div className="node-wrapper">
                           <div 
                             className="orb" 
@@ -89,10 +82,8 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
                           <span className="node-sub">{path.source?.name_app}</span>
                       </div>
                       
-                      {/* Conector (Ahora usa el color del sendero) */}
                       <div className="flow-line"></div>
                       
-                      {/* Destino */}
                       <div className="node-wrapper">
                           <div 
                             className="orb" 
@@ -103,7 +94,7 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
                       </div>
                   </div>
 
-                  {/* 3. TABLA DE DIAGNÓSTICO */}
+                  {/* 3. TABLA DE DIAGNÓSTICO (Centrada en CSS) */}
                   {path.tikkun && (
                       <div className="diagnostic-grid">
                           <div className="diag-cell">
@@ -122,9 +113,9 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
                   )}
 
                   {/* 4. TOOL / FUNCIÓN */}
-                  <div className="tool-box" style={{ borderLeftColor: displayColor }}>
-                      <span className="tool-label" style={{ color: displayColor }}>TOOL:</span>
-                      {path.app_function}
+                  <div className="tool-box">
+                      <span className="tool-label">TOOL:</span>
+                      <span>{path.app_function}</span>
                   </div>
 
                 </div>
