@@ -27,58 +27,191 @@ body {
   align-items: center; /* Centrado vertical */
 }
 
-/* HEADER */
+/* src/App.css */
+
+/* ... (Mantén el bloque :root y body igual que antes) ... */
+
+:root {
+  --bg-dark: #050505;
+  --accent: #4ecdc4;
+  --gold: #f1c40f;
+  --glass-bg: rgba(20, 20, 20, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000 80%);
+  color: #eee;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+.supramente-terminal {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- HEADER & BRANDING --- */
 .terminal-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
+  align-items: flex-end;
+  margin-bottom: 50px;
   border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 20px;
+  padding-bottom: 25px;
 }
 
-.glitch-title {
-  font-family: 'SF Mono', 'Courier New', monospace;
-  font-size: 1.2rem;
-  letter-spacing: 3px;
-  font-weight: 400;
-  margin: 0;
+.header-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* TÍTULO: AXIS 13 (GLITCH LENTO Y AMPLIO) */
+.axis-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 3.5rem; /* Un poco más grande */
+  font-weight: 900;
+  line-height: 0.9;
   color: #fff;
+  margin: 0;
+  position: relative;
+  letter-spacing: -2px;
+  text-transform: uppercase;
 }
 
+.axis-title::before,
+.axis-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-dark);
+}
+
+/* Capa 1: Aumentamos duración a 6s y desplazamiento a 4px */
+.axis-title::before {
+  left: 3px; /* Más ancho */
+  text-shadow: -2px 0 #4ecdc4; 
+  clip-path: inset(0 0 60% 0);
+  animation: glitch-anim-1 6s infinite linear alternate-reverse; /* Lento */
+}
+
+/* Capa 2: Aumentamos duración a 4s y desplazamiento a -3px */
+.axis-title::after {
+  left: -3px; /* Más ancho */
+  text-shadow: -2px 0 #f1c40f; 
+  clip-path: inset(45% 0 0 0);
+  animation: glitch-anim-2 4s infinite linear alternate-reverse; /* Lento */
+}
+
+.axis-subtitle {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 12px; /* Tracking extremo */
+  text-transform: uppercase;
+  margin-left: 6px;
+}
+
+/* ANIMACIONES GLITCH AJUSTADAS (Lento y Amplio) */
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-3px, 0); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(3px, 0); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-3px, 0); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 0); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 0); }
+  100% { clip-path: inset(30% 0 20% 0); transform: translate(0, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(3px, 0); }
+  25% { clip-path: inset(80% 0 5% 0); transform: translate(-3px, 0); }
+  50% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 0); }
+  75% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 0); }
+  100% { clip-path: inset(50% 0 30% 0); transform: translate(0, 0); }
+}
+
+/* --- CYBER SELECTOR (High-End Dropdown) --- */
 .system-selector {
   display: flex;
   align-items: center;
-  gap: 10px;
+  position: relative;
+  margin-bottom: 5px;
 }
 
+/* Ocultamos el estilo nativo y aplicamos el propio */
 .bio-select {
-  background: rgba(0,0,0,0.5);
-  color: var(--accent);
-  border: 1px solid var(--glass-border);
-  padding: 8px 15px;
-  border-radius: 8px;
-  font-family: 'SF Mono', monospace;
+  appearance: none; /* Elimina la flecha fea del navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  background-color: rgba(10, 10, 10, 0.8);
+  color: #4ecdc4; /* Texto Cian */
+  font-family: 'SF Mono', 'Courier New', monospace;
   font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-radius: 4px;
+  padding: 10px 40px 10px 15px; /* Espacio extra a la derecha para la flecha */
+  
   cursor: pointer;
   outline: none;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.05);
+  transition: all 0.3s ease;
+  
+  /* FLECHA PERSONALIZADA (SVG en Base64) */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ecdc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
 }
 
-/* --- NUEVO: PANTALLA DE VISUALIZACIÓN DE TEXTO --- */
+/* Efecto Hover */
+.bio-select:hover {
+  border-color: #4ecdc4;
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+  background-color: rgba(10, 10, 10, 1);
+}
+
+/* Efecto Focus (Cuando se abre) */
+.bio-select:focus {
+  border-color: #f1c40f; /* Dorado al activar */
+  color: #fff;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f1c40f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+/* Opciones internas (Depende del navegador, pero intentamos oscurecer) */
+.bio-select option {
+  background-color: #000;
+  color: #ddd;
+  padding: 10px;
+}
+
+/* --- SECCIONES Y DISPLAY --- */
 .input-display-container {
   width: 100%;
   max-width: 850px;
   min-height: 100px;
   margin-bottom: 30px;
-  
-  /* Glassmorphism */
   background: rgba(10, 10, 10, 0.4);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
-  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,12 +222,12 @@ body {
 
 .live-text {
   font-size: 2.5rem;
-  font-family: 'Times New Roman', serif; /* Serif para hebreo se ve mejor */
+  font-family: 'Times New Roman', serif;
   letter-spacing: 5px;
   line-height: 1.2;
   text-align: center;
   word-break: break-word;
-  direction: rtl; /* Escritura derecha a izquierda */
+  direction: rtl;
 }
 
 .placeholder-text {
@@ -105,7 +238,6 @@ body {
   animation: pulse 2s infinite;
 }
 
-/* --- BOTÓN DE EJECUCIÓN --- */
 .action-area {
   margin: 30px 0;
   width: 100%;
@@ -122,7 +254,7 @@ body {
   font-size: 0.9rem;
   letter-spacing: 3px;
   font-family: 'SF Mono', monospace;
-  border-radius: 50px; /* Píldora */
+  border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 0 15px rgba(78, 205, 196, 0.1);
@@ -141,21 +273,21 @@ body {
   transform: scale(0.95);
 }
 
-/* --- CONTENEDOR DE RESULTADOS (POPOUT) --- */
 .results-popout {
   width: 100%;
   max-width: 900px;
   overflow: hidden;
-  max-height: 0; /* Oculto por defecto */
+  max-height: 0;
   opacity: 0;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Animación suave iOS */
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding-bottom: 100px;
 }
 
 .results-popout.visible {
-  max-height: 2000px; /* Suficiente para mostrar todo */
+  max-height: 15000px;
   opacity: 1;
   margin-top: 20px;
 }
@@ -166,40 +298,27 @@ body {
   100% { opacity: 0.3; }
 }
 
-/* Footer sutil */
 .terminal-footer {
   margin-top: 60px;
   opacity: 0.3;
   font-size: 0.7rem;
   font-family: monospace;
 }
-/* src/App.css */
 
-/* ... (resto del código igual) ... */
-
-/* --- CONTENEDOR DE RESULTADOS (POPOUT) --- */
-.results-popout {
-  width: 100%;
-  max-width: 900px;
-  overflow: hidden; /* Necesario para la animación de cierre */
-  max-height: 0; 
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  /* FIX: Margen inferior para que no se pegue al borde en móviles */
-  padding-bottom: 100px; 
-}
-
-.results-popout.visible {
-  /* FIX CRÍTICO: Aumentamos de 2000px a 15000px. 
-     Esto asegura que quepa todo el reporte en móvil sin cortarse. */
-  max-height: 15000px; 
-  opacity: 1;
-  margin-top: 20px;
-  /* Opcional: Si la animación te da igual y prefieres seguridad total:
-     max-height: none; 
-     (pero esto desactivará la animación de cierre suave)
-  */
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .terminal-header {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .axis-title {
+      font-size: 2.5rem;
+  }
+  
+  .input-preview {
+    font-size: 1.5rem;
+  }
 }
