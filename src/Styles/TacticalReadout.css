@@ -90,236 +90,98 @@
   background: var(--base-bg);
 }
 
-/* --- FICHA DE CONTEXTO DEL NIVEL (MEJORADA) --- */
+/* src/Styles/TacticalReadout.css */
+
+/* ... (Mantén todo lo anterior hasta .level-context-box) ... */
+
+/* --- FICHA DE CONTEXTO DEL NIVEL (REFINADA) --- */
 .level-context-box {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(0,0,0,0.2) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 4px solid var(--base-bg); /* Indicador de color sólido */
-  border-radius: 8px;
-  padding: 20px 25px;
-  margin-bottom: 30px;
+  /* Fondo más sutil, sin bordes duros */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: none; 
+  border-radius: 0; /* Recto, más técnico */
+  
+  padding: 25px 20px;
+  margin-bottom: 35px;
   animation: fadeIn 0.4s ease-out;
   position: relative;
+  text-align: center; /* Centrado para elegancia */
+}
+
+/* Marcadores técnicos en las esquinas */
+.level-context-box::before,
+.level-context-box::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: var(--base-bg); /* Color dinámico */
+    border-style: solid;
+    opacity: 0.7;
+}
+
+.level-context-box::before {
+    top: 0; left: 0;
+    border-width: 1px 0 0 1px; /* Esquina superior izq */
+}
+
+.level-context-box::after {
+    bottom: 0; right: 0;
+    border-width: 0 1px 1px 0; /* Esquina inferior der */
 }
 
 .context-header {
   display: flex;
-  flex-direction: column; /* Apilado por defecto */
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 10px;
-  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  border-bottom: none; /* Quitamos la línea divisoria dura */
+  padding-bottom: 0;
 }
 
-/* NOMBRE DEL MUNDO (Ej: BERIÁ) */
+/* NOMBRE DEL MUNDO (Ej: BERIÁ) - ESTILO HAIRLINE */
 .context-world {
   color: #fff;
   font-family: 'Inter', -apple-system, sans-serif;
-  font-weight: 900; /* Extra Bold */
-  font-size: 1.4rem; /* Grande e impactante */
-  letter-spacing: 2px;
+  font-weight: 200; /* Ultra Fino (Elegante) */
+  font-size: 1.8rem; 
+  letter-spacing: 6px; /* Espaciado amplio */
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.15); /* Brillo etéreo */
 }
 
-/* FOCO (Ej: Chayá / Mente) */
+/* FOCO (Ej: Chayá / Mente) - ESTILO TÉCNICO */
 .context-focus {
   color: var(--base-bg); /* Color del nivel */
-  font-family: 'SF Mono', monospace;
-  font-size: 0.75rem;
+  font-family: 'SF Mono', 'Courier New', monospace;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  font-weight: 400;
   opacity: 0.9;
-  font-weight: bold;
+  
+  /* Pequeña cápsula */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* DESCRIPCIÓN OPERACIONAL */
 .context-desc {
-  color: #ccc;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6); /* Gris más suave */
+  font-size: 0.9rem;
+  line-height: 1.7; /* Mayor altura de línea para lectura zen */
   font-family: 'Inter', sans-serif;
-  font-weight: 300; /* Light para elegancia */
-  border-left: 1px solid rgba(255,255,255,0.1); /* Línea sutil */
-  padding-left: 15px;
-  margin-top: 5px;
-}
-
-.tactical-content {
-  display: block; 
-  width: 100%;
-  opacity: 1;
-}
-
-/* ... (El resto de estilos de Golden Section, Attr Grid y Torah se mantienen igual) ... */
-.golden-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 25px;
-  margin: 20px 0;
-  padding: 20px 0;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.golden-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.golden-count {
-  font-size: 0.65rem;
-  opacity: 0.5;
-  margin-top: 8px;
-  font-family: monospace;
-}
-
-.section-title {
-  font-size: 0.7rem;
-  color: #4ecdc4;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  text-align: center;
-  opacity: 0.8;
-}
-
-.text-body {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.9);
-  text-align: center;
-  margin-top: 25px;
   font-weight: 300;
-  padding: 0 10px;
+  max-width: 90%;
+  margin: 0 auto; /* Centrado */
+  border-left: none;
+  padding-left: 0;
 }
 
-.attr-grid {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  font-size: 0.7rem;
-  color: #aaa;
-  margin-top: 15px;
-  font-family: monospace;
-}
-
-.attr-item {
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 5px 12px;
-  border-radius: 20px;
-  background: rgba(0,0,0,0.3);
-  text-transform: uppercase;
-}
-
-/* Torah Block */
-.torah-block {
-    margin-top: 35px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.05);
-    padding: 20px;
-}
-
-.torah-header {
-    font-size: 0.7rem;
-    color: #4ecdc4;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 20px;
-    opacity: 0.9;
-}
-
-.torah-grid {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-}
-
-.torah-word-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 120px;
-    padding-right: 20px;
-    border-right: 1px solid rgba(255,255,255,0.1);
-}
-
-.hebrew-origin {
-    font-size: 2.2rem;
-    font-family: 'Times New Roman', serif;
-    color: #fff;
-    text-shadow: 0 0 15px rgba(255,255,255,0.4);
-    line-height: 1.2;
-}
-
-.phonetic-origin {
-    font-size: 0.8rem;
-    color: #aaa;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 5px;
-}
-
-.torah-meta-box {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1;
-    min-width: 200px;
-}
-
-.meta-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px dashed rgba(255,255,255,0.1);
-    padding-bottom: 5px;
-}
-
-.meta-label {
-    font-size: 0.7rem;
-    color: #666;
-    letter-spacing: 1px;
-}
-
-.meta-val {
-    font-size: 0.85rem;
-    color: #ddd;
-    text-align: right;
-    font-family: monospace;
-}
-
-.meta-val.highlight {
-    color: #f1c40f; 
-}
-
-/* Media Queries */
-@media (min-width: 600px) {
-  .context-header {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-  }
-}
-
-@media (max-width: 600px) {
-    .torah-word-box {
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        padding-right: 0;
-        padding-bottom: 20px;
-        width: 100%;
-    }
-    .torah-meta-box {
-        width: 100%;
-    }
-}
+/* ... (Resto de estilos: tactical-content, golden-section, etc. se mantienen) ... */
