@@ -64,9 +64,21 @@ const App = () => {
   return (
     <div className="supramente-terminal">
       
+{/* 1. HEADER (BRANDING ACTUALIZADO) */}
       <header className="terminal-header">
-        <h1 className="glitch-title">SUPRAMENTE_IO</h1>
         
+        {/* Identidad Visual: Axis 13 / Coherence */}
+        <div className="header-branding">
+            {/* data-text es necesario para el efecto glitch CSS */}
+            <h1 className="axis-title" data-text="AXIS 13">
+                AXIS 13
+            </h1>
+            <div className="axis-subtitle">
+                COHERENCE
+            </div>
+        </div>
+        
+        {/* Selector de Sistema */}
         <div className="system-selector">
           <select 
             value={colorSystem} 
