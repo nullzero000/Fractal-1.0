@@ -1,13 +1,53 @@
-import React, { useMemo } from 'react'; // Quitamos useState porque ahora viene de props
+import React, { useMemo } from 'react';
 import { analyzeFrequencyAndColor, parseRGB } from '../utils/spectralEngine'; 
 import { getSemanticsFromRGB } from '../utils/colorNamer'; 
 import '../Styles/TacticalReadout.css';
 
-// Recibimos activeLevel y onLevelSelect desde App
+// DICCIONARIO DE NIVELES (RE-MAPEO ESTRUCTURAL)
+const LEVEL_META = {
+  // El Input original (0) es ahora la Materia Física (Nivel 1)
+  0: { 
+    label: 'NV 1 (MATERIA)', 
+    world: "ASSIYÁ HA'TACHTONA", 
+    focus: 'Cuerpo / Nefesh', 
+    desc: 'La Letra como Forma. Verificación de si la Luz se sostiene. Dominio del Ego.' 
+  },
+  1: { 
+    label: 'NV 2 (ACCIÓN)', 
+    world: 'ASSIYÁ (ESPÍRITU)', 
+    focus: 'Ruach / Sendero 11-32', 
+    desc: 'La Letra como Fuerza. Primera Expansión. Rectificación a través de los actos.' 
+  },
+  2: { 
+    label: 'NV 3 (FORMACIÓN)', 
+    world: 'YETZIRÁ (ALMA)', 
+    focus: 'Neshamá / Emoción', 
+    desc: 'La Letra como Emoción. Flujo puro. Se establecen las Formas Arquetípicas.' 
+  },
+  3: { 
+    label: 'NV 4 (CREACIÓN)', 
+    world: 'BERIÁ (VIDA)', 
+    focus: 'Chayá / Mente', 
+    desc: 'Estructura Causal. La mente deja de proyectar trauma y se alinea con la Ley.' 
+  },
+  4: { 
+    label: 'NV 5 (EMANACIÓN)', 
+    world: 'ATZILUT (UNIDAD)', 
+    focus: 'Yechidá / Intención', 
+    desc: 'Máxima Coherencia. El mundo de la Voluntad pura y el Deseo de Otorgar.' 
+  },
+  // La Expansión Final (5) es ahora la Raíz (Nivel 0)
+  5: { 
+    label: 'RAÍZ', 
+    world: 'VOLUNTAD PURA (KETER)', 
+    focus: 'Eje 13', 
+    desc: 'El punto final de la Ascensión. La Fusión con la Voluntad. La Letra desaparece.' 
+  }
+};
+
 const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, colorSystem }) => {
   
   const analysis = useMemo(() => {
-    // Usamos activeLevel en lugar de selectedLevel local
     if (!levels || !levels[activeLevel]) return null;
     if (!levels[activeLevel].chars || levels[activeLevel].chars.length === 0) return null;
     return analyzeFrequencyAndColor(levels[activeLevel].chars, colorSystem);
@@ -44,25 +84,41 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
     };
   };
 
+  const currentMeta = LEVEL_META[activeLevel] || { label: `NIVEL ${activeLevel}`, world: 'DESCONOCIDO', desc: '' };
+
   return (
     <div className="tactical-container" style={{ '--base-color': baseColor }}>
       
+      {/* 1. NAVEGACIÓN */}
       <div className="tactical-nav">
-        {levels.map((lvl) => (
-          <button 
-            key={lvl.level} 
-            // Comparamos con activeLevel (prop)
-            className={`tactical-tab ${activeLevel === lvl.level ? 'active' : ''}`}
-            // Al hacer click, avisamos a App
-            onClick={() => onLevelSelect(lvl.level)}
-          >
-            {lvl.level === 0 ? 'RAÍZ' : `NIVEL ${lvl.level}`}
-          </button>
-        ))}
+        {levels.map((lvl) => {
+            const meta = LEVEL_META[lvl.level] || { label: `NIVEL ${lvl.level}` };
+            return (
+              <button 
+                key={lvl.level} 
+                className={`tactical-tab ${activeLevel === lvl.level ? 'active' : ''}`}
+                onClick={() => onLevelSelect(lvl.level)}
+              >
+                {meta.label}
+              </button>
+            );
+        })}
       </div>
 
       <div className="tactical-content">
         
+        {/* FICHA DE CONTEXTO DEL NIVEL */}
+        <div className="level-context-box">
+            <div className="context-header">
+                <span className="context-world">{currentMeta.world}</span>
+                <span className="context-focus">// {currentMeta.focus}</span>
+            </div>
+            <div className="context-desc">
+                {currentMeta.desc}
+            </div>
+        </div>
+
+        {/* HEADER CROMÁTICO */}
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <span style={{ 
                 fontSize: '0.7rem', 
@@ -76,8 +132,8 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
             </span>
         </div>
 
+        {/* FRECUENCIA ÁUREA */}
         <div className="section-title">FRECUENCIA ÁUREA (TOP 5)</div>
-        
         <div className="golden-section">
           {top5.map((char, i) => {
             const size = Math.max(1.5, BASE_SIZE / Math.pow(GOLDEN_RATIO, i));
@@ -94,18 +150,18 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
           })}
         </div>
 
+        {/* SÍNTESIS */}
         <div className="section-title">SINTESIS DE EJE: {analysis.dominant} ({dominantData?.name})</div>
-        
         <div className="attr-grid">
           <span className="attr-item">ELEM: {dominantData?.element || '-'}</span>
           <span className="attr-item">PLAN: {dominantData?.planet || '-'}</span>
           <span className="attr-item">ARCANO: {dominantData?.tarot || '-'}</span>
         </div>
-
         <div className="text-body">
           {dominantData?.energy}
         </div>
 
+        {/* ORIGEN TORÁICO */}
         <div className="torah-block">
             <div className="torah-header">ORIGEN DE EJE (TORÁ & BIO)</div>
             <div className="torah-grid">
