@@ -16,13 +16,13 @@ import './App.css';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
-  
-  // Usamos la constante importada 'ari' como default
   const [colorSystem, setColorSystem] = useState(DEFAULT_COLOR_SYSTEM);
   
-  const [showResults, setShowResults] = useState(false);
+  // Estados de la Interfaz
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false); // Abre el Pop-up
+  const [isLoading, setIsLoading] = useState(false);         // Controla el Spinner Glitch
+  const [showResultsContent, setShowResultsContent] = useState(false); // Muestra los datos
   
-  // Control del Nivel Activo (Sincronización Tactical <-> Tabla)
   const [activeLevel, setActiveLevel] = useState(0);
 
   const handleKeyPress = (char) => {
@@ -37,7 +37,6 @@ const App = () => {
     return calculateMiluyLevels(inputText);
   }, [inputText]);
 
-  // FUNCIÓN MAESTRA DE COLOR (La que faltaba en PathMonitor)
   const getActiveColor = (char) => {
     if (!char) return 'transparent';
     const data = HEBREW_DATA[char];
@@ -50,35 +49,38 @@ const App = () => {
      return isDark ? `0 0 10px rgba(255,255,255,0.5)` : `0 0 15px ${color}`;
   };
   
+  // --- LÓGICA DE ANÁLISIS (SECUENCIA) ---
   const handleAnalyze = () => {
       if (inputText.length > 0) {
-          setShowResults(true);
-          setActiveLevel(0); // Reset a raíz
+          // 1. Abrir Overlay y resetear estados
+          setIsOverlayOpen(true);
+          setIsLoading(true);
+          setShowResultsContent(false);
+          setActiveLevel(0);
+
+          // 2. Simular Procesamiento (El Glitch "AXIS 13")
           setTimeout(() => {
-              const el = document.getElementById('results-anchor');
-              if(el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
+              setIsLoading(false); // Ocultar loader
+              setShowResultsContent(true); // Mostrar resultados
+          }, 2500); // 2.5 segundos de "Cálculo"
       }
+  };
+
+  const handleCloseModal = () => {
+      setIsOverlayOpen(false);
+      setShowResultsContent(false);
+      setIsLoading(false);
   };
 
   return (
     <div className="supramente-terminal">
       
-{/* 1. HEADER (BRANDING ACTUALIZADO) */}
+      {/* HEADER */}
       <header className="terminal-header">
-        
-        {/* Identidad Visual: Axis 13 / Coherence */}
         <div className="header-branding">
-            {/* data-text es necesario para el efecto glitch CSS */}
-            <h1 className="axis-title" data-text="AXIS 13">
-                AXIS 13
-            </h1>
-            <div className="axis-subtitle">
-                COHERENCE
-            </div>
+            <h1 className="axis-title" data-text="AXIS 13">AXIS 13</h1>
+            <div className="axis-subtitle">COHERENCE</div>
         </div>
-        
-        {/* Selector de Sistema */}
         <div className="system-selector">
           <select 
             value={colorSystem} 
@@ -93,6 +95,7 @@ const App = () => {
         </div>
       </header>
 
+      {/* INPUT DISPLAY */}
       <section className="input-display-container">
         {inputText ? (
           <div className="live-text">
@@ -117,6 +120,7 @@ const App = () => {
         )}
       </section>
 
+      {/* TECLADO */}
       <section style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
         <HebrewKeyboard 
           onKeyPress={handleKeyPress} 
@@ -124,43 +128,63 @@ const App = () => {
         />
       </section>
 
+      {/* BOTÓN DE ACCIÓN */}
       <div className="action-area">
           <button className="analyze-btn" onClick={handleAnalyze}>
               INICIAR ANÁLISIS
           </button>
       </div>
 
-      <div id="results-anchor" className={`results-popout ${showResults ? 'visible' : ''}`}>
-        
-        {/* 1. TACTICAL READOUT */}
-        <TacticalReadout 
-            levels={levels} 
-            activeLevel={activeLevel}
-            onLevelSelect={setActiveLevel}
-            getActiveColor={getActiveColor}
-            colorSystem={colorSystem}
-        />
-        
-        {/* 2. MONITOR DE SENDEROS (FIX: Ahora recibe getActiveColor) */}
-        <PathMonitor 
-            inputString={inputText} 
-            getActiveColor={getActiveColor} 
-        />
-        
-        {/* 3. TABLA DE ANÁLISIS */}
-        <AnalysisTable 
-            levels={levels} 
-            activeLevel={activeLevel} 
-        />
+      {/* --- OVERLAY POP-UP (MODAL) --- */}
+      <div className={`analysis-overlay ${isOverlayOpen ? 'active' : ''}`}>
           
-        <FractalMonitor 
-            levels={levels} 
-            colorSystem={colorSystem} 
-        />
+          {/* ESTADO 1: LOADER (GLITCH AXIS 13) */}
+          {isLoading && (
+              <div className="loader-container">
+                  <div className="loader-title" data-text="AXIS 13">AXIS 13</div>
+                  <div className="loader-status">CALCULANDO VECTORES DE EJE...</div>
+              </div>
+          )}
+
+          {/* ESTADO 2: RESULTADOS */}
+          {!isLoading && (
+              <div className={`results-modal-content ${showResultsContent ? 'visible' : ''}`}>
+                  
+                  {/* Botón Cerrar */}
+                  <button className="close-modal-btn" onClick={handleCloseModal}>✕</button>
+                  
+                  {/* Contenedor Interno de Reportes */}
+                  <div className="modal-inner-wrapper">
+                      
+                      <TacticalReadout 
+                          levels={levels} 
+                          activeLevel={activeLevel}
+                          onLevelSelect={setActiveLevel}
+                          getActiveColor={getActiveColor}
+                          colorSystem={colorSystem}
+                      />
+                      
+                      <PathMonitor 
+                          inputString={inputText} 
+                          getActiveColor={getActiveColor} 
+                      />
+                      
+                      <AnalysisTable 
+                          levels={levels} 
+                          activeLevel={activeLevel} 
+                      />
+                        
+                      <FractalMonitor 
+                          levels={levels} 
+                          colorSystem={colorSystem} 
+                      />
+                  </div>
+              </div>
+          )}
       </div>
 
       <footer className="terminal-footer">
-        <p>EJE 13 / MODULAR SYSTEM v3.6</p>
+        <p>EJE 13 / MODULAR SYSTEM v4.0</p>
       </footer>
     </div>
   );
