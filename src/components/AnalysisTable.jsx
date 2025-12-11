@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '../Styles/AnalysisTable.css';
 
-const AnalysisTable = ({ levels, activeLevel }) => {
+// Recibimos getActiveColor
+const AnalysisTable = ({ levels, activeLevel, getActiveColor }) => {
   const [hoveredLevel, setHoveredLevel] = useState(null);
-  // Nuevo estado para controlar qué fila está expandida (Drill-down)
   const [expandedLevel, setExpandedLevel] = useState(null);
 
   if (!levels || levels.length === 0) return null;
@@ -17,22 +17,19 @@ const AnalysisTable = ({ levels, activeLevel }) => {
     return `NIVEL ${index + 1}`;
   };
 
-  // HELPER: Calcular Frecuencia de Letras para el nivel
   const getFrequencyMap = (chars) => {
     const map = {};
     chars.forEach(char => {
       map[char] = (map[char] || 0) + 1;
     });
-    // Convertir a array y ordenar por cantidad (descendente)
     return Object.entries(map).sort((a, b) => b[1] - a[1]);
   };
 
-  // Handler para expandir/colapsar
   const toggleRow = (lvlIndex) => {
     if (expandedLevel === lvlIndex) {
-      setExpandedLevel(null); // Colapsar si ya está abierto
+      setExpandedLevel(null); 
     } else {
-      setExpandedLevel(lvlIndex); // Expandir nuevo
+      setExpandedLevel(lvlIndex); 
     }
   };
 
@@ -62,15 +59,13 @@ const AnalysisTable = ({ levels, activeLevel }) => {
 
               return (
                 <React.Fragment key={lvl.level}>
-                  {/* FILA PRINCIPAL */}
                   <tr 
                     onMouseEnter={() => setHoveredLevel(lvl)}
                     onMouseLeave={() => setHoveredLevel(null)}
-                    onClick={() => toggleRow(lvl.level)} // Click para expandir
+                    onClick={() => toggleRow(lvl.level)} 
                     className={`${isActive ? 'active-row' : ''} ${isExpanded ? 'expanded-row' : ''} clickable-row`}
                   >
                     <td className="level-cell">
-                        {/* Indicador de expansión */}
                         <span className="expand-icon">{isExpanded ? '▼' : '►'}</span> 
                         {getLevelLabel(lvl.level)}
                     </td>
@@ -80,19 +75,31 @@ const AnalysisTable = ({ levels, activeLevel }) => {
                     <td className="reduced-cell">{lvl.reducedValue}</td>
                   </tr>
 
-                  {/* FILA DE DETALLE (EXPANDIBLE) */}
                   {isExpanded && (
                     <tr className="detail-row">
                       <td colSpan="5">
                         <div className="frequency-panel">
                           <div className="freq-header">DESGLOSE DE FRECUENCIA (DOMINANCIA):</div>
                           <div className="freq-grid">
-                            {frequencies.map(([char, count]) => (
-                              <div key={char} className="freq-chip">
-                                <span className="freq-char">{char}</span>
-                                <span className="freq-count">x{count}</span>
-                              </div>
-                            ))}
+                            {frequencies.map(([char, count]) => {
+                              // COLORIZACIÓN DINÁMICA DE LA LETRA
+                              const charColor = getActiveColor ? getActiveColor(char) : '#fff';
+                              
+                              return (
+                                <div key={char} className="freq-chip">
+                                  <span 
+                                    className="freq-char" 
+                                    style={{ 
+                                        color: charColor,
+                                        textShadow: `0 0 5px ${charColor}`
+                                    }}
+                                  >
+                                    {char}
+                                  </span>
+                                  <span className="freq-count">x{count}</span>
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       </td>
@@ -106,12 +113,8 @@ const AnalysisTable = ({ levels, activeLevel }) => {
       </div>
 
       <div className="summary-box">
-        <span>
-            VIBRACIÓN ACTIVA ({getLevelLabel(displayData.level)}):
-        </span>
-        <span className="final-number">
-            {displayData.reducedValue}
-        </span>
+        <span>VIBRACIÓN ACTIVA ({getLevelLabel(displayData.level)}):</span>
+        <span className="final-number">{displayData.reducedValue}</span>
       </div>
     </div>
   );

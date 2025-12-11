@@ -3,7 +3,6 @@ import { analyzeFrequencyAndColor, parseRGB } from '../utils/spectralEngine';
 import { getSemanticsFromRGB } from '../utils/colorNamer'; 
 import '../Styles/TacticalReadout.css';
 
-// DICCIONARIO DE NIVELES
 const LEVEL_META = {
   0: { label: 'NV 1 (MATERIA)', world: "ASSIYÁ HA'TACHTONA", focus: 'Cuerpo / Nefesh', desc: 'La Letra como Forma. Verificación de si la Luz se sostiene. Dominio del Ego.' },
   1: { label: 'NV 2 (ACCIÓN)', world: 'ASSIYÁ (ESPÍRITU)', focus: 'Ruach / Sendero 11-32', desc: 'La Letra como Fuerza. Primera Expansión. Rectificación a través de los actos.' },
@@ -57,7 +56,6 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
   return (
     <div className="tactical-container" style={{ '--base-color': baseColor }}>
       
-      {/* 1. NAVEGACIÓN */}
       <div className="tactical-nav">
         {levels.map((lvl) => {
             const meta = LEVEL_META[lvl.level] || { label: `NIVEL ${lvl.level}` };
@@ -75,7 +73,6 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
 
       <div className="tactical-content">
         
-        {/* CONTEXTO */}
         <div className="level-context-box">
             <div className="context-header">
                 <span className="context-world">{currentMeta.world}</span>
@@ -84,14 +81,12 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
             <div className="context-desc">{currentMeta.desc}</div>
         </div>
 
-        {/* HEADER CROMÁTICO */}
         <div className="chroma-header">
             <span style={{color: '#fff', opacity:0.9, letterSpacing:'2px', fontSize:'0.7rem'}}>
                 RESONANCIA: <strong>{colorName.toUpperCase()}</strong> <span style={{opacity:0.5}}>({rgbString})</span>
             </span>
         </div>
 
-        {/* FRECUENCIA ÁUREA */}
         <div className="section-title">FRECUENCIA ÁUREA (TOP 5)</div>
         <div className="golden-section">
           {top5.map((char, i) => {
@@ -107,10 +102,7 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
           })}
         </div>
 
-        {/* SÍNTESIS */}
         <div className="section-title">SINTESIS DE EJE: {analysis.dominant} ({dominantData?.name})</div>
-        
-        {/* GRID DE ATRIBUTOS (MEJORADO) */}
         <div className="attr-grid">
           <div className="attr-item">
               <span className="attr-label">ELEM</span>
@@ -126,16 +118,27 @@ const TacticalReadout = ({ levels, activeLevel, onLevelSelect, getActiveColor, c
           </div>
         </div>
 
-        <div className="text-body">
-          {dominantData?.energy}
-        </div>
+        <div className="text-body">{dominantData?.energy}</div>
 
-        {/* ORIGEN TORÁICO */}
+        {/* ORIGEN TORÁICO (CON COLOR LETRA POR LETRA) */}
         <div className="torah-block">
             <div className="torah-header">ORIGEN DE EJE (TORÁ & BIO)</div>
             <div className="torah-grid">
                 <div className="torah-word-box">
-                    <span className="hebrew-origin" dir="rtl" lang="he">{torahData.word}</span>
+                    <span className="hebrew-origin" dir="rtl" lang="he">
+                        {/* MAGIC SPLIT: Separamos la palabra y coloreamos cada carácter */}
+                        {torahData.word.split('').map((char, idx) => {
+                            // Obtenemos color (ignora nikkud si no está en la base de datos, fallback a blanco)
+                            const charColor = getActiveColor(char) !== '#555' && getActiveColor(char) !== 'transparent' 
+                                              ? getActiveColor(char) 
+                                              : '#fff';
+                            return (
+                                <span key={idx} style={{ color: charColor, transition: 'color 0.3s' }}>
+                                    {char}
+                                </span>
+                            );
+                        })}
+                    </span>
                     <span className="phonetic-origin">{torahData.phonetic}</span>
                 </div>
                 <div className="torah-meta-box">

@@ -53,25 +53,30 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
               <div 
                 key={path.id} 
                 className="path-card"
-                // INYECCIÓN MAESTRA DEL COLOR: Todo el CSS hijo usa esto
                 style={{ '--path-color': displayColor }}
               >
                 
                 {/* 1. CABECERA */}
                 <div className="path-header-strip">
                   <div className="path-id-block">
-                      {/* CSS se encarga del color con var(--path-color) */}
                       <span className="path-label">SENDERO {path.id}</span>
                       <span className="path-letter-name">{path.letter.toUpperCase()}</span>
                   </div>
-                  <div className="hebrew-glyph" style={{ textShadow: `0 0 15px ${displayColor}` }}>
+                  {/* FIX: Color Directo + Shadow */}
+                  <div 
+                    className="hebrew-glyph" 
+                    style={{ 
+                        color: displayColor, 
+                        textShadow: `0 0 20px ${displayColor}66` // 66 es alfa para transparencia
+                    }}
+                  >
                     {path.hebrew_char}
                   </div>
                 </div>
 
                 <div className="path-body">
                   
-                  {/* 2. DIAGRAMA DE FLUJO SEFIRÓTICO */}
+                  {/* 2. DIAGRAMA */}
                   <div className="sefirot-diagram">
                       <div className="node-wrapper">
                           <div 
@@ -94,7 +99,7 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
                       </div>
                   </div>
 
-                  {/* 3. TABLA DE DIAGNÓSTICO (Centrada en CSS) */}
+                  {/* 3. DIAGNÓSTICO */}
                   {path.tikkun && (
                       <div className="diagnostic-grid">
                           <div className="diag-cell">
@@ -112,7 +117,7 @@ const PathMonitor = ({ inputString, getActiveColor }) => {
                       </div>
                   )}
 
-                  {/* 4. TOOL / FUNCIÓN */}
+                  {/* 4. TOOL */}
                   <div className="tool-box">
                       <span className="tool-label">TOOL:</span>
                       <span>{path.app_function}</span>
