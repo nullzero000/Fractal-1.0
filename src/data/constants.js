@@ -2,10 +2,10 @@ export const HEBREW_DATA = {
   'א': { 
     val: 1, name: 'Aleph', meaning: 'Buey / Maestro', element: 'Aire', planet: 'Urano', tarot: 'El Loco',
     palettes: { 
-        gd: 'rgb(240, 248, 255)',  // Amarillo Pálido (Aire)
-        ari: 'rgb(255, 255, 255)', // Blanco (Keter/Jesed)
+        gd: 'rgb(240, 248, 255)',  
+        ari: 'rgb(255, 255, 255)', 
         ort: 'rgb(200, 200, 200)', 
-        akashic: 'rgb(173, 255, 47)' 
+        akashic: 'rgb(173, 255, 47)' // Corregido
     }, 
     energy: 'Paradoja. Silencio.', 
     torah: { word: 'אֱלֹהִים', phonetic: 'Elohim', cite: 'Gen 1:1', bio: 'Pecho / Pulmones (Aire)' }
@@ -14,10 +14,10 @@ export const HEBREW_DATA = {
   'ב': { 
     val: 2, name: 'Bet', meaning: 'Casa', element: 'Tierra', planet: 'Luna', tarot: 'El Mago',
     palettes: { 
-        gd: 'rgb(255, 255, 240)',  // Amarillo (Mercurio/Mago)
-        ari: 'rgb(255, 255, 255)', // Blanco
-        ort: 'rgb(200, 200, 200)', // FIX: Gris claro para visibilidad sobre negro
-        akashic: 'rgb(0, 0, 205)' 
+        gd: 'rgb(255, 255, 240)',  
+        ari: 'rgb(255, 255, 255)', 
+        ort: 'rgb(200, 200, 200)', 
+        akashic: 'rgb(0, 0, 205)' // Corregido
     }, 
     energy: 'La Casa.', 
     torah: { word: 'בְּרֵאשִׁית', phonetic: 'Bereshit', cite: 'Gen 1:1', bio: 'Ojo Derecho' }
@@ -26,10 +26,10 @@ export const HEBREW_DATA = {
   'ג': { 
     val: 3, name: 'Gimel', meaning: 'Camello', element: 'Fuego', planet: 'Marte', tarot: 'La Sacerdotisa',
     palettes: { 
-        gd: 'rgb(255, 140, 0)',    // Naranja Oscuro (Luna/Sacerdotisa en GD es Azul, pero restauramos tu original)
-        ari: 'rgb(220, 20, 60)',   // Rojo (Gevurá)
-        ort: 'rgb(255, 0, 0)',     // Rojo ortodoxo estándar
-        akashic: 'rgb(228, 0, 124)' 
+        gd: 'rgb(255, 140, 0)',    
+        ari: 'rgb(220, 20, 60)',   
+        ort: 'rgb(255, 0, 0)',     
+        akashic: 'rgb(228, 0, 124)' // Corregido
     },
     energy: 'Canal.', 
     torah: { word: 'גַּן', phonetic: 'Gan', cite: 'Gen 2:8', bio: 'Oído Derecho' }
@@ -38,10 +38,10 @@ export const HEBREW_DATA = {
   'ד': { 
     val: 4, name: 'Dalet', meaning: 'Puerta', element: 'Tierra', planet: 'Venus', tarot: 'La Emperatriz',
     palettes: { 
-        gd: 'rgb(255, 215, 0)',    // Oro/Verde (Venus)
-        ari: 'rgb(0, 128, 0)',     // Verde (Tiferet)
+        gd: 'rgb(255, 215, 0)',    
+        ari: 'rgb(0, 128, 0)',     
         ort: 'rgb(255, 165, 0)', 
-        akashic: 'rgb(149, 53, 83)' 
+        akashic: 'rgb(149, 53, 83)' // Corregido
     },
     energy: 'Contención.', 
     torah: { word: 'דֶּשֶׁא', phonetic: 'Deshé', cite: 'Gen 1:11', bio: 'Fosa Nasal Derecha' }
@@ -50,10 +50,10 @@ export const HEBREW_DATA = {
   'ה': { 
     val: 5, name: 'He', meaning: 'Ventana', element: 'Aire', planet: 'Aries', tarot: 'El Emperador',
     palettes: { 
-        gd: 'rgb(255, 69, 0)',     // Escarlata (Aries)
-        ari: 'rgb(0, 0, 139)',     // Azul (Maljuto/Jesed variaciones)
+        gd: 'rgb(255, 69, 0)',     
+        ari: 'rgb(0, 0, 139)',     
         ort: 'rgb(139, 0, 0)', 
-        akashic: 'rgb(135, 206, 235)' 
+        akashic: 'rgb(135, 206, 235)' // Corregido
     },
     energy: 'Aliento.', 
     torah: { word: 'הַשָּׁמַיִם', phonetic: "Ha'Shamayim", cite: 'Gen 1:1', bio: 'Pie Derecho' }
@@ -62,10 +62,10 @@ export const HEBREW_DATA = {
   'ו': { 
     val: 6, name: 'Vav', meaning: 'Clavo', element: 'Tierra', planet: 'Tauro', tarot: 'El Hierofante',
     palettes: { 
-        gd: 'rgb(139, 69, 19)',    // Rojo-Naranja/Tierra (Tauro)
-        ari: 'rgb(255, 255, 255)', // Blanco (Tiferet/Zeir Anpin)
+        gd: 'rgb(139, 69, 19)',    
+        ari: 'rgb(255, 255, 255)', 
         ort: 'rgb(100, 50, 0)', 
-        akashic: 'rgb(220, 20, 60)' 
+        akashic: 'rgb(220, 20, 60)' // Corregido
     }, 
     energy: 'Conector.', 
     torah: { word: 'וְאֵת', phonetic: "Ve'et", cite: 'Gen 1:1', bio: 'Riñón Derecho' }
@@ -74,10 +74,10 @@ export const HEBREW_DATA = {
   'ז': { 
     val: 7, name: 'Zayin', meaning: 'Espada', element: 'Aire', planet: 'Géminis', tarot: 'Los Enamorados',
     palettes: { 
-        gd: 'rgb(255, 255, 0)',    // Naranja/Amarillo (Géminis)
-        ari: 'rgb(255, 140, 0)',   // Naranja
+        gd: 'rgb(255, 255, 0)',    
+        ari: 'rgb(255, 140, 0)',   
         ort: 'rgb(192, 192, 192)', 
-        akashic: 'rgb(65, 105, 225)' 
+        akashic: 'rgb(65, 105, 225)' // Corregido
     }, 
     energy: 'Espada.', 
     torah: { word: 'זֶרַע', phonetic: 'Zera', cite: 'Gen 1:11', bio: 'Pie Izquierdo' }
@@ -86,10 +86,10 @@ export const HEBREW_DATA = {
   'ח': { 
     val: 8, name: 'Chet', meaning: 'Valla', element: 'Agua', planet: 'Cáncer', tarot: 'El Carro',
     palettes: { 
-        gd: 'rgb(0, 191, 255)',    // Ámbar/Azul (Cáncer)
-        ari: 'rgb(128, 0, 0)',     // Rojo Oscuro
+        gd: 'rgb(0, 191, 255)',    
+        ari: 'rgb(128, 0, 0)',     
         ort: 'rgb(0, 0, 128)', 
-        akashic: 'rgb(255, 215, 0)' 
+        akashic: 'rgb(255, 215, 0)' // Corregido
     }, 
     energy: 'Vida.', 
     torah: { word: 'חֹשֶׁךְ', phonetic: 'Choshech', cite: 'Gen 1:2', bio: 'Mano Derecha' }
@@ -98,10 +98,10 @@ export const HEBREW_DATA = {
   'ט': { 
     val: 9, name: 'Tet', meaning: 'Serpiente', element: 'Fuego', planet: 'Leo', tarot: 'La Fuerza',
     palettes: { 
-        gd: 'rgb(255, 165, 0)',    // Amarillo Verdoso (Leo)
+        gd: 'rgb(255, 165, 0)',    
         ari: 'rgb(255, 255, 255)', 
         ort: 'rgb(255, 215, 0)', 
-        akashic: 'rgb(200, 162, 200)' 
+        akashic: 'rgb(200, 162, 200)' // Corregido
     }, 
     energy: 'Bondad.', 
     torah: { word: 'טוֹב', phonetic: 'Tov', cite: 'Gen 1:4', bio: 'Riñón Izquierdo' }
@@ -110,10 +110,10 @@ export const HEBREW_DATA = {
   'י': { 
     val: 10, name: 'Yod', meaning: 'Mano', element: 'Tierra', planet: 'Virgo', tarot: 'El Ermitaño',
     palettes: { 
-        gd: 'rgb(85, 107, 47)',    // Amarillo Verdoso (Virgo)
-        ari: 'rgb(0, 0, 0)',       // Negro (Punto primordial)
+        gd: 'rgb(85, 107, 47)',    
+        ari: 'rgb(0, 0, 0)',       
         ort: 'rgb(10, 10, 10)', 
-        akashic: 'rgb(255, 248, 220)' 
+        akashic: 'rgb(255, 248, 220)' // Corregido
     }, 
     energy: 'Punto.', 
     torah: { word: 'יְהִי', phonetic: 'Yehí', cite: 'Gen 1:3', bio: 'Mano Izquierda' }
@@ -122,10 +122,10 @@ export const HEBREW_DATA = {
   'כ': { 
     val: 20, name: 'Kaf', meaning: 'Palma', element: 'Tierra', planet: 'Venus', tarot: 'La Rueda',
     palettes: { 
-        gd: 'rgb(0, 128, 0)',      // Violeta/Azul (Júpiter en GD, pero original era verde)
-        ari: 'rgb(0, 255, 0)',     // Verde
+        gd: 'rgb(0, 128, 0)',      
+        ari: 'rgb(0, 255, 0)',     
         ort: 'rgb(139, 69, 19)', 
-        akashic: 'rgb(138, 43, 226)' 
+        akashic: 'rgb(138, 43, 226)' // Corregido
     }, 
     energy: 'Palma.', 
     torah: { word: 'כִּי', phonetic: 'Ki', cite: 'Gen 1:4', bio: 'Ojo Izquierdo' }
@@ -134,10 +134,10 @@ export const HEBREW_DATA = {
   'ל': { 
     val: 30, name: 'Lamed', meaning: 'Aguijón', element: 'Aire', planet: 'Libra', tarot: 'La Justicia',
     palettes: { 
-        gd: 'rgb(173, 216, 230)',  // Esmeralda (Libra)
-        ari: 'rgb(255, 255, 0)',   // Amarillo
+        gd: 'rgb(173, 216, 230)',  
+        ari: 'rgb(255, 255, 0)',   
         ort: 'rgb(200, 200, 255)', 
-        akashic: 'rgb(204, 119, 34)' 
+        akashic: 'rgb(204, 119, 34)' // Corregido
     }, 
     energy: 'Enseñanza.', 
     torah: { word: 'לָיְלָה', phonetic: 'Layla', cite: 'Gen 1:5', bio: 'Vesícula Biliar' }
@@ -146,10 +146,10 @@ export const HEBREW_DATA = {
   'מ': { 
     val: 40, name: 'Mem', meaning: 'Agua', element: 'Agua', planet: 'Neptuno', tarot: 'El Colgado',
     palettes: { 
-        gd: 'rgb(0, 0, 205)',      // Azul Profundo (Agua)
-        ari: 'rgb(0, 0, 255)',     // Azul
+        gd: 'rgb(0, 0, 205)',      
+        ari: 'rgb(0, 0, 255)',     
         ort: 'rgb(0, 100, 255)', 
-        akashic: 'rgb(0, 206, 209)' 
+        akashic: 'rgb(0, 206, 209)' // Corregido
     }, 
     energy: 'Matriz.', 
     torah: { word: 'מְרַחֶפֶת', phonetic: 'Merajefet', cite: 'Gen 1:2', bio: 'Vientre (Agua)' }
@@ -158,10 +158,10 @@ export const HEBREW_DATA = {
   'נ': { 
     val: 50, name: 'Nun', meaning: 'Pez', element: 'Agua', planet: 'Escorpio', tarot: 'La Muerte',
     palettes: { 
-        gd: 'rgb(0, 128, 128)',    // Verde Azulado (Escorpio)
-        ari: 'rgb(0, 100, 0)',     // Verde Oscuro
+        gd: 'rgb(0, 128, 128)',    
+        ari: 'rgb(0, 100, 0)',     
         ort: 'rgb(47, 79, 79)', 
-        akashic: 'rgb(255, 182, 193)' 
+        akashic: 'rgb(255, 182, 193)' // Corregido
     }, 
     energy: 'Caída.', 
     torah: { word: 'נֶפֶשׁ', phonetic: 'Nefesh', cite: 'Gen 1:20', bio: 'Intestinos' }
@@ -170,10 +170,10 @@ export const HEBREW_DATA = {
   'ס': { 
     val: 60, name: 'Samekh', meaning: 'Puntal', element: 'Fuego', planet: 'Sagitario', tarot: 'La Templanza',
     palettes: { 
-        gd: 'rgb(250, 128, 114)',  // Azul (Sagitario en GD, restaurado original)
-        ari: 'rgb(255, 0, 255)',   // Magenta/Violeta
+        gd: 'rgb(250, 128, 114)',  
+        ari: 'rgb(255, 0, 255)',   
         ort: 'rgb(255, 69, 0)', 
-        akashic: 'rgb(218, 112, 214)' 
+        akashic: 'rgb(218, 112, 214)' // Corregido
     }, 
     energy: 'Apoyo.', 
     torah: { word: 'סֹבֵב', phonetic: 'Saviv', cite: 'Gen 2:11', bio: 'Estómago' }
@@ -182,10 +182,10 @@ export const HEBREW_DATA = {
   'ע': { 
     val: 70, name: 'Ayin', meaning: 'Ojo', element: 'Tierra', planet: 'Capricornio', tarot: 'El Diablo',
     palettes: { 
-        gd: 'rgb(47, 79, 79)',     // Indigo/Negro (Capricornio)
-        ari: 'rgb(75, 0, 130)',    // Indigo
+        gd: 'rgb(47, 79, 79)',     
+        ari: 'rgb(75, 0, 130)',    
         ort: 'rgb(0, 0, 0)', 
-        akashic: 'rgb(80, 200, 120)' 
+        akashic: 'rgb(80, 200, 120)' // Corregido
     }, 
     energy: 'Ojo.', 
     torah: { word: 'עַל', phonetic: 'Al', cite: 'Gen 1:2', bio: 'Hígado' }
@@ -194,10 +194,10 @@ export const HEBREW_DATA = {
   'פ': { 
     val: 80, name: 'Pei', meaning: 'Boca', element: 'Aire', planet: 'Mercurio', tarot: 'La Torre',
     palettes: { 
-        gd: 'rgb(148, 0, 211)',    // Escarlata (Marte/Torre en GD, restaurado original)
-        ari: 'rgb(255, 255, 255)', // Blanco
+        gd: 'rgb(148, 0, 211)',    
+        ari: 'rgb(255, 255, 255)', 
         ort: 'rgb(255, 0, 0)', 
-        akashic: 'rgb(255, 105, 180)' 
+        akashic: 'rgb(255, 105, 180)' // Corregido
     }, 
     energy: 'Boca.', 
     torah: { word: 'פְּנֵי', phonetic: 'Pnei', cite: 'Gen 1:2', bio: 'Oído Izquierdo' }
@@ -206,10 +206,10 @@ export const HEBREW_DATA = {
   'צ': { 
     val: 90, name: 'Tzadik', meaning: 'Anzuelo', element: 'Aire', planet: 'Acuario', tarot: 'La Estrella',
     palettes: { 
-        gd: 'rgb(224, 255, 255)',  // Violeta (Acuario en GD, restaurado original)
-        ari: 'rgb(128, 0, 128)',   // Púrpura
+        gd: 'rgb(224, 255, 255)',  
+        ari: 'rgb(128, 0, 128)',   
         ort: 'rgb(0, 255, 255)', 
-        akashic: 'rgb(144, 238, 144)' 
+        akashic: 'rgb(144, 238, 144)' // Corregido
     }, 
     energy: 'Justo.', 
     torah: { word: 'צֶלֶם', phonetic: 'Tzelem', cite: 'Gen 1:27', bio: 'Esófago / Garganta' }
@@ -218,10 +218,10 @@ export const HEBREW_DATA = {
   'ק': { 
     val: 100, name: 'Kof', meaning: 'Ojo aguja', element: 'Agua', planet: 'Piscis', tarot: 'La Luna',
     palettes: { 
-        gd: 'rgb(70, 130, 180)',   // Carmesí (Piscis en GD, restaurado original)
-        ari: 'rgb(220, 20, 60)',   // Rojo
+        gd: 'rgb(70, 130, 180)',   
+        ari: 'rgb(220, 20, 60)',   
         ort: 'rgb(100, 100, 100)', 
-        akashic: 'rgb(175, 238, 238)' 
+        akashic: 'rgb(175, 238, 238)' // Corregido
     }, 
     energy: 'Santidad.', 
     torah: { word: 'קָרָא', phonetic: 'Kara', cite: 'Gen 1:5', bio: 'Bazo' }
@@ -230,10 +230,10 @@ export const HEBREW_DATA = {
   'ר': { 
     val: 200, name: 'Resh', meaning: 'Cabeza', element: 'Tierra', planet: 'Saturno', tarot: 'El Sol',
     palettes: { 
-        gd: 'rgb(105, 105, 105)',  // Naranja (Sol en GD, restaurado original)
-        ari: 'rgb(255, 165, 0)',   // Naranja
+        gd: 'rgb(105, 105, 105)',  
+        ari: 'rgb(255, 165, 0)',   
         ort: 'rgb(139, 69, 19)', 
-        akashic: 'rgb(230, 230, 250)' 
+        akashic: 'rgb(230, 230, 250)' // Corregido
     }, 
     energy: 'Cabeza.', 
     torah: { word: 'רוּחַ', phonetic: 'Ruach', cite: 'Gen 1:2', bio: 'Fosa Nasal Izquierda' }
@@ -242,10 +242,10 @@ export const HEBREW_DATA = {
   'ש': { 
     val: 300, name: 'Shin', meaning: 'Fuego', element: 'Fuego', planet: 'Plutón', tarot: 'El Juicio',
     palettes: { 
-        gd: 'rgb(220, 20, 60)',    // Naranja Brillante (Fuego)
-        ari: 'rgb(255, 0, 0)',     // Rojo
+        gd: 'rgb(220, 20, 60)',    
+        ari: 'rgb(255, 0, 0)',     
         ort: 'rgb(255, 69, 0)', 
-        akashic: 'rgb(224, 255, 255)' 
+        akashic: 'rgb(224, 255, 255)' // Corregido
     }, 
     energy: 'Fuego.', 
     torah: { word: 'שָׁמָיִם', phonetic: 'Shamayim', cite: 'Gen 1:8', bio: 'Cabeza (Fuego)' }
@@ -254,10 +254,10 @@ export const HEBREW_DATA = {
   'ת': { 
     val: 400, name: 'Tav', meaning: 'Cruz', element: 'Tierra', planet: 'Júpiter', tarot: 'El Mundo',
     palettes: { 
-        gd: 'rgb(75, 0, 130)',     // Indigo/Negro (Saturno/Tierra)
-        ari: 'rgb(0, 0, 139)',     // Azul Oscuro
+        gd: 'rgb(75, 0, 130)',     
+        ari: 'rgb(0, 0, 139)',     
         ort: 'rgb(0, 0, 0)', 
-        akashic: 'rgb(255, 255, 224)' 
+        akashic: 'rgb(255, 255, 224)' // Corregido
     }, 
     energy: 'Sello.', 
     torah: { word: 'תֹהוּ', phonetic: 'Tohu', cite: 'Gen 1:2', bio: 'Boca' }
@@ -274,7 +274,7 @@ export const MILUY_MAP = {
 export const NORMALIZE_MAP = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
 export const KEYBOARD_LAYOUT = [ "אבגדהוזחטי", "כלמנסעפצקר", "שת" ];
 
-// Configuración por defecto: ARI (Luriánico)
+// FIX CRÍTICO: Configuración por defecto = ARI
 export const DEFAULT_COLOR_SYSTEM = 'ari';
 export const DEFAULT_MILUY_SYSTEM = 'ari';
 
