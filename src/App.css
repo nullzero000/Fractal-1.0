@@ -8,55 +8,59 @@
   --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-body {
+/* FIX GLOBAL: BLOQUEO DE SCROLL Y REBOTE IOS */
+html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%; /* Fallback */
+  height: 100dvh; /* Altura dinámica real móvil */
+  overflow: hidden; /* Prohibido scroll */
+  overscroll-behavior: none; /* Prohibido rebote elástico */
   background-color: var(--bg-dark);
   background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000 80%);
   color: #eee;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
-  /* FIX: BLOQUEO DE SCROLL EN PANTALLA PRINCIPAL */
-  height: 100vh;
-  overflow: hidden; 
+  /* Prevenir zoom en inputs en iOS */
+  -webkit-text-size-adjust: 100%;
 }
 
 .supramente-terminal {
+  width: 100%;
+  height: 100%;
+  height: 100dvh; /* Ocupar exactamente la pantalla */
   max-width: 1000px;
-  /* FIX: OCUPAR 100% VERTICAL */
-  height: 100vh; 
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px; /* Padding reducido */
   box-sizing: border-box;
   
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Distribuye elementos para llenar la pantalla */
+  justify-content: space-between; /* Repartir espacio vertical */
   align-items: center;
 }
 
-/* --- HEADER & BRANDING (Compacto) --- */
+/* --- HEADER --- */
 .terminal-header {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Quitamos márgenes grandes, dejamos que flex lo maneje */
   padding-bottom: 10px;
   border-bottom: 1px solid var(--glass-border);
-  flex-shrink: 0; /* No encoger */
+  flex-shrink: 0; /* No aplastar */
 }
 
 .header-branding {
   display: flex;
   flex-direction: column;
-  gap: 0;
   align-items: center;
 }
 
 .axis-title {
   font-family: 'Inter', sans-serif;
-  font-size: 3rem; /* Un poco más compacto */
+  font-size: 2.5rem; /* Base escritorio */
   font-weight: 900;
   line-height: 1;
   color: #fff;
@@ -66,63 +70,50 @@ body {
   text-transform: uppercase;
 }
 
-/* (Efecto Glitch se mantiene igual, omitido por brevedad, ya funciona) */
-.axis-title::before, .axis-title::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: var(--bg-dark);
-}
-.axis-title::before {
-  left: 2px; text-shadow: -2px 0 #4ecdc4; clip-path: inset(0 0 60% 0);
-  animation: glitch-anim-1 6s infinite linear alternate-reverse;
-}
-.axis-title::after {
-  left: -2px; text-shadow: -2px 0 #f1c40f; clip-path: inset(45% 0 0 0);
-  animation: glitch-anim-2 4s infinite linear alternate-reverse;
-}
+/* GLITCH (Simplificado para brevedad, funcional igual) */
+.axis-title::before, .axis-title::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); }
+.axis-title::before { left: 2px; text-shadow: -2px 0 #4ecdc4; clip-path: inset(0 0 60% 0); animation: glitch-1 6s infinite linear alternate-reverse; }
+.axis-title::after { left: -2px; text-shadow: -2px 0 #f1c40f; clip-path: inset(45% 0 0 0); animation: glitch-2 4s infinite linear alternate-reverse; }
+@keyframes glitch-1 { 0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px,0); } 100% { clip-path: inset(30% 0 20% 0); transform: translate(0,0); } }
+@keyframes glitch-2 { 0% { clip-path: inset(10% 0 60% 0); transform: translate(2px,0); } 100% { clip-path: inset(50% 0 30% 0); transform: translate(0,0); } }
 
 .axis-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 100;
   color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 10px;
+  letter-spacing: 8px;
   text-transform: uppercase;
 }
 
-@keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px,0); } 100% { clip-path: inset(30% 0 20% 0); transform: translate(0,0); } }
-@keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); transform: translate(2px,0); } 100% { clip-path: inset(50% 0 30% 0); transform: translate(0,0); } }
-
-/* --- DISPLAY DE ENTRADA (FLEXIBLE) --- */
+/* --- DISPLAY (FLEXIBLE) --- */
 .input-display-container {
   width: 100%;
   max-width: 850px;
-  /* Flex grow para ocupar espacio disponible pero no demasiado */
-  flex: 1; 
-  max-height: 25vh; /* Límite para que no empuje todo */
-  min-height: 100px;
+  flex: 1; /* Ocupa el espacio sobrante */
+  min-height: 80px; /* Mínimo para que no desaparezca */
+  max-height: 25vh; /* Límite vertical */
   
   margin: 10px 0;
   background: rgba(10, 10, 10, 0.4);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
   box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
   position: relative;
+  overflow: hidden; /* Cortar si es demasiado largo */
 }
 
 .live-text {
-  font-size: 4rem; 
+  font-size: 4rem; /* Escritorio */
   font-family: 'Times New Roman', serif;
-  letter-spacing: 2px;
   line-height: 1;
   text-align: center;
-  word-break: break-word;
+  white-space: nowrap; /* Evita saltos de línea que rompan el layout */
   direction: rtl;
 }
 
@@ -134,82 +125,67 @@ body {
   animation: pulse 2s infinite;
 }
 
-/* FIX: BOTÓN DE COPIAR "INVISIBLE" */
+/* BOTÓN COPIAR (STEALTH) */
 .copy-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  
-  width: 24px; /* Muy pequeño */
+  top: 8px;
+  right: 8px;
+  width: 24px;
   height: 24px;
-  
-  background: transparent; /* Sin fondo */
-  border: none; /* Sin borde */
+  background: transparent;
+  border: none;
   color: #4ecdc4;
-  
-  opacity: 0.1; /* Casi invisible */
+  opacity: 0.2; /* Casi invisible */
   transition: all 0.3s ease;
   cursor: pointer;
   z-index: 20;
 }
+.copy-btn:hover { opacity: 1; transform: scale(1.1); }
+.copy-icon { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; }
 
-.copy-btn:hover {
-  opacity: 1; /* Visible al 100% al pasar el mouse */
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 5px #4ecdc4);
-}
-
-.copy-icon {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-/* --- SYSTEM NAVBAR (Compacto) --- */
+/* --- NAVBAR --- */
 .system-navbar {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 8px;
+  margin: 5px 0;
   flex-shrink: 0;
+  width: 100%;
 }
 
 .sys-btn {
   background: rgba(10, 10, 10, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #555;
-  padding: 8px 15px; /* Más pequeño */
+  padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
   font-family: 'SF Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 1px;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   transition: all 0.3s ease;
+  flex: 1; /* Distribuir equitativamente */
+  justify-content: center;
 }
 
 .sys-icon { width: 14px; height: 14px; opacity: 0.4; }
-.sys-btn:hover { border-color: rgba(255,255,255,0.3); color: #aaa; }
 .sys-btn.active { border-color: #4ecdc4; color: #fff; background: rgba(78, 205, 196, 0.05); }
 .sys-btn.active .sys-icon { opacity: 1; color: #4ecdc4; }
 
-/* --- TECLADO (Contenedor Ajustado) --- */
-.keyboard-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-bottom: 10px;
+/* --- TECLADO --- */
+/* (El componente HebrewKeyboard se encarga del layout interno, aquí solo el contenedor) */
+section[style*="justify-content: center"] {
+    flex-shrink: 0; /* No aplastar el teclado */
+    margin-bottom: 5px;
 }
 
-/* --- ÁREA DE ACCIÓN (BOTÓN ANÁLISIS FLOTANTE/INTEGRADO) --- */
+/* --- ÁREA DE ACCIÓN --- */
 .action-area {
-  margin: 10px 0 20px 0; /* Margen inferior para separarse del footer */
+  margin: 10px 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -220,25 +196,17 @@ body {
   background: rgba(78, 205, 196, 0.05);
   color: var(--accent);
   border: 1px solid var(--accent);
-  padding: 12px 50px; /* Ancho pero no alto */
+  padding: 12px 0; /* Full width touch area */
+  width: 80%; /* Ancho cómodo */
   font-size: 0.8rem;
   letter-spacing: 4px;
   font-family: 'SF Mono', monospace;
-  border-radius: 4px; /* Más técnico */
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(78, 205, 196, 0.05);
   text-transform: uppercase;
 }
 
-.analyze-btn:hover {
-  background: var(--accent);
-  color: #000;
-  box-shadow: 0 0 25px rgba(78, 205, 196, 0.5);
-  letter-spacing: 6px; /* Efecto de expansión */
-}
-
-/* --- FOOTER --- */
+/* --- FOOTER (Oculto en móvil para ganar espacio) --- */
 .terminal-footer {
   opacity: 0.2;
   font-size: 0.6rem;
@@ -247,9 +215,9 @@ body {
   flex-shrink: 0;
 }
 
-/* --- OVERLAY & MODAL (Sin cambios funcionales, solo asegurar z-index) --- */
+/* --- MODAL --- */
 .analysis-overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background-color: rgba(5, 5, 5, 0.98); 
   backdrop-filter: blur(15px);
   z-index: 9999;
@@ -258,29 +226,71 @@ body {
 }
 .analysis-overlay.active { opacity: 1; pointer-events: all; }
 
-/* Loader */
-.loader-container { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-.loader-title { font-family: 'Inter', sans-serif; font-size: 4rem; font-weight: 900; color: #fff; position: relative; letter-spacing: -4px; }
-.loader-title::before, .loader-title::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #050505; }
-.loader-title::before { left: 3px; text-shadow: -3px 0 #4ecdc4; clip-path: inset(0 0 60% 0); animation: glitch-anim-1 0.4s infinite linear alternate-reverse; }
-.loader-title::after { left: -3px; text-shadow: -3px 0 #f1c40f; clip-path: inset(45% 0 0 0); animation: glitch-anim-2 0.3s infinite linear alternate-reverse; }
-.loader-status { font-family: 'SF Mono', monospace; color: #4ecdc4; font-size: 0.7rem; letter-spacing: 3px; animation: pulse 1s infinite; }
-
-/* Resultados Modal */
-.results-modal-content { width: 100%; height: 100%; overflow-y: auto; padding: 40px 20px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; opacity: 0; transform: translateY(20px); transition: all 0.8s ease 0.2s; }
+.loader-title { font-family: 'Inter', sans-serif; font-size: 3rem; font-weight: 900; color: #fff; letter-spacing: -2px; }
+.results-modal-content { width: 100%; height: 100%; overflow-y: auto; padding: 20px 10px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; opacity: 0; transform: translateY(20px); transition: all 0.8s ease 0.2s; }
 .results-modal-content.visible { opacity: 1; transform: translateY(0); }
-.close-modal-btn { position: fixed; top: 30px; right: 30px; background: rgba(0,0,0,0.5); border: 1px solid #4ecdc4; color: #4ecdc4; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; z-index: 100; transition: all 0.3s ease; }
-.close-modal-btn:hover { background: #4ecdc4; color: #000; transform: rotate(90deg); }
-.modal-inner-wrapper { width: 100%; max-width: 900px; padding-bottom: 100px; }
-.results-popout { width: 100%; display: flex; flex-direction: column; gap: 30px; }
+.close-modal-btn { position: fixed; top: 20px; right: 20px; background: rgba(0,0,0,0.8); border: 1px solid #4ecdc4; color: #4ecdc4; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; }
+.modal-inner-wrapper { width: 100%; max-width: 900px; padding-bottom: 80px; }
+.results-popout { width: 100%; display: flex; flex-direction: column; gap: 20px; }
 
-@keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 0.6; } 100% { opacity: 0.3; } }
-
-/* RESPONSIVE */
+/* --- RESPONSIVE / MÓVIL (IPHONE ADJUSTMENTS) --- */
 @media (max-width: 768px) {
-  /* En móviles, permitimos scroll si es muy chico */
-  body, .supramente-terminal { height: auto; overflow: auto; min-height: 100vh; }
-  .terminal-header { margin-top: 20px; }
-  .axis-title { font-size: 2.5rem; }
-  .live-text { font-size: 3rem; }
+  
+  .supramente-terminal {
+      padding: 10px 15px; /* Menos padding lateral */
+  }
+
+  /* 1. Header más compacto */
+  .terminal-header {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+  }
+  .axis-title {
+      font-size: 2rem; /* Título más pequeño */
+  }
+  .axis-subtitle {
+      font-size: 0.5rem;
+      letter-spacing: 4px;
+  }
+
+  /* 2. Display de Texto Ajustado */
+  .input-display-container {
+      margin: 5px 0;
+      min-height: 60px; /* Reducir altura mínima */
+  }
+  .live-text {
+      font-size: 2.5rem; /* Fuente reducida para que quepa */
+      padding: 5px 30px;
+  }
+
+  /* 3. Navbar en 2 filas si es necesario, o iconos más chicos */
+  .system-navbar {
+      gap: 5px;
+      margin: 5px 0;
+  }
+  .sys-btn {
+      padding: 8px 5px;
+      font-size: 0.55rem;
+  }
+  .sys-icon {
+      width: 12px;
+      height: 12px;
+  }
+
+  /* 4. Teclado más compacto (ajuste indirecto de márgenes) */
+  /* (El teclado usa su propio CSS, pero nos aseguramos que no empuje mucho) */
+  
+  /* 5. Footer fuera */
+  .terminal-footer {
+      display: none; /* Ganar espacio vital */
+  }
+
+  /* 6. Botón Análisis siempre visible abajo */
+  .action-area {
+      margin: 5px 0 10px 0;
+  }
+  .analyze-btn {
+      padding: 12px 0;
+      font-size: 0.75rem;
+  }
 }
