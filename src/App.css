@@ -25,13 +25,13 @@ body {
   align-items: center;
 }
 
-/* --- HEADER & BRANDING --- */
+/* Header Branding (Simplificado, ya sin el selector) */
 .terminal-header {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 50px;
+  justify-content: center; /* Título centrado ahora */
+  align-items: center;
+  margin-bottom: 40px;
   border-bottom: 1px solid var(--glass-border);
   padding-bottom: 25px;
 }
@@ -41,6 +41,102 @@ body {
   flex-direction: column;
   gap: 2px;
 }
+/* --- NUEVO: SYSTEM NAVBAR TÁCTICO --- */
+.system-navbar {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px; /* Separación con el teclado */
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 800px;
+}
+
+.sys-btn {
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #666;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  
+  font-family: 'SF Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  font-weight: bold;
+  
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.sys-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+/* HOVER */
+.sys-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.sys-btn:hover .sys-icon {
+  opacity: 1;
+}
+
+/* ESTADO ACTIVO (High-Tech Glow) */
+.sys-btn.active {
+  background: rgba(78, 205, 196, 0.1);
+  color: #fff;
+  border-color: #4ecdc4; /* Borde Cian */
+  box-shadow: 0 0 20px -5px rgba(78, 205, 196, 0.3);
+}
+
+.sys-btn.active .sys-icon {
+  opacity: 1;
+  color: #4ecdc4; /* Icono se enciende */
+  filter: drop-shadow(0 0 5px rgba(78, 205, 196, 0.8));
+}
+
+/* Indicador inferior en activo */
+.sys-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #4ecdc4;
+}
+
+/* RESPONSIVE: En móvil se apilan o achican */
+@media (max-width: 600px) {
+  .system-navbar {
+    gap: 8px;
+  }
+  .sys-btn {
+    padding: 10px 12px;
+    font-size: 0.65rem;
+    flex: 1 1 40%; /* 2 por fila */
+    justify-content: center;
+  }
+  .sys-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ... (Mantén el resto: .input-display, .copy-btn, .action-area, modals, etc.) ... */
 
 /* TÍTULO: AXIS 13 (GLITCH LENTO Y AMPLIO) */
 .axis-title {
