@@ -3,7 +3,7 @@
 .analysis-container {
   width: 100%;
   max-width: 700px;
-  margin: 0 auto 30px auto; /* Centrado y margen inferior */
+  margin: 0 auto 30px auto; 
   font-family: 'SF Mono', 'Courier New', monospace;
   animation: fadeIn 0.5s ease-out;
 }
@@ -16,14 +16,14 @@
   border-bottom: 1px solid rgba(78, 205, 196, 0.3);
   padding-bottom: 10px;
   margin-bottom: 15px;
-  text-align: center; /* Centramos el título */
+  text-align: center;
 }
 
 .table-wrapper {
   background: rgba(10, 10, 10, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  overflow: hidden; /* Para bordes redondeados */
+  overflow: hidden; 
   box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
 }
 
@@ -35,8 +35,8 @@
 }
 
 .miluy-table th, .miluy-table td {
-  padding: 12px 15px;
-  text-align: center; /* Todo centrado por defecto */
+  padding: 12px 10px; /* Ajuste de padding para móviles */
+  text-align: center; 
 }
 
 .miluy-table th {
@@ -44,7 +44,7 @@
   color: #888;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 1px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -63,16 +63,42 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Fila Activa */
+/* --- COLUMNAS ESPECÍFICAS --- */
+
+/* Nivel */
+.level-cell {
+    font-weight: bold;
+    color: #ddd;
+}
+
+/* Distintas (Nueva) */
+.diversity-cell {
+    color: #4ecdc4; /* Cian Táctico */
+    font-weight: bold;
+}
+
+/* Masa */
+.value-cell {
+    font-family: monospace;
+    opacity: 0.8;
+}
+
+/* Esencia */
+.reduced-cell {
+    font-weight: bold;
+    color: #fff;
+}
+
+/* --- FILA ACTIVA --- */
 .active-row {
   background: rgba(78, 205, 196, 0.1) !important;
   box-shadow: inset 3px 0 0 #4ecdc4;
 }
 
-.active-row .level-cell { color: #4ecdc4; font-weight: bold; }
+.active-row .level-cell { color: #4ecdc4; }
 .active-row .reduced-cell { color: #f1c40f; text-shadow: 0 0 10px rgba(241, 196, 15, 0.4); }
 
-/* SUMMARY BOX */
+/* --- SUMMARY BOX --- */
 .summary-box {
   margin-top: 15px;
   background: rgba(0, 0, 0, 0.4);
@@ -97,8 +123,8 @@
 /* Mobile Adjustments */
 @media (max-width: 600px) {
   .miluy-table th, .miluy-table td {
-    padding: 10px 5px;
-    font-size: 0.7rem;
+    padding: 10px 4px;
+    font-size: 0.65rem; /* Fuente más chica para que quepan 5 columnas */
   }
   .summary-box {
     flex-direction: column;
