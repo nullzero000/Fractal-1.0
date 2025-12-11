@@ -191,3 +191,39 @@
       font-size: 2.5rem;
   }
 }
+/* src/Styles/AnalysisTable.css */
+
+/* ... (Mantén todo el código anterior igual hasta llegar a .miluy-table tr:hover) ... */
+
+/* REEMPLAZAR O AGREGAR ESTO PARA MEJOR UX */
+
+.miluy-table tbody tr {
+    transition: all 0.2s ease;
+    cursor: crosshair; /* Cursor técnico */
+}
+
+/* Efecto Hover Suave */
+.miluy-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Fila Activa (Sincronizada con el Summary Box) */
+.active-row {
+    background: rgba(78, 205, 196, 0.1) !important; /* Luz Cian tenue */
+    box-shadow: inset 2px 0 0 #4ecdc4; /* Indicador izquierdo */
+}
+
+.active-row .level-cell {
+    color: #4ecdc4; /* Texto se ilumina */
+}
+
+.active-row .reduced-cell {
+    color: #f1c40f; /* El número se pone dorado */
+    text-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+}
+
+/* Ajuste del Summary Box para evitar saltos de layout cuando cambia el texto */
+.summary-box span:first-child {
+    min-height: 1.2em; /* Reserva espacio */
+    transition: opacity 0.2s;
+}

@@ -1,25 +1,32 @@
 import React, { useMemo } from 'react';
 import { PATHS_OF_WISDOM } from '../data/pathsOfWisdom';
+import { HEBREW_DATA } from '../data/constants'; 
 import '../Styles/PathMonitor.css';
 
-const PathMonitor = ({ inputString }) => {
+// FIX: Recibimos getActiveColor como prop
+const PathMonitor = ({ inputString, getActiveColor }) => {
   
   const activePaths = useMemo(() => {
     if (!inputString) return [];
     
-    // Obtenemos letras únicas
     const uniqueChars = [...new Set(inputString.split(''))];
     
-    // Filtramos los 'edges'
     const edges = PATHS_OF_WISDOM.paths_of_wisdom.filter(item => 
       item.type === 'edge' && uniqueChars.includes(item.hebrew_char)
     );
 
-    // Enriquecemos con los nodos completos
     return edges.map(edge => {
       const source = PATHS_OF_WISDOM.paths_of_wisdom.find(n => n.id === edge.source_node_id);
       const target = PATHS_OF_WISDOM.paths_of_wisdom.find(n => n.id === edge.target_node_id);
-      return { ...edge, source, target };
+      const hebrewData = HEBREW_DATA[edge.hebrew_char];
+      
+      return { 
+          ...edge, 
+          source, 
+          target, 
+          syInfo: hebrewData?.sy_data,
+          tikkun: hebrewData?.tikkun 
+      };
     });
 
   }, [inputString]);
@@ -28,61 +35,102 @@ const PathMonitor = ({ inputString }) => {
 
   return (
     <div className="path-container">
-      <div className="path-title">
-        <span>⚡</span> ARQUITECTURA DE EJE (SENDEROS ACTIVOS)
+      <div className="path-main-header">
+        ARQUITECTURA DE EJE (SENDEROS ACTIVOS)
       </div>
 
       {activePaths.length === 0 ? (
         <div className="empty-state">
-          NO SE DETECTAN SENDEROS MAYORES EN LA SECUENCIA ACTUAL.
+          // SISTEMA EN ESPERA: SIN SENDEROS ACTIVOS
         </div>
       ) : (
         <div className="path-grid">
-          {activePaths.map((path) => (
-            <div key={path.id} className="path-card">
-              
-              {/* CABECERA */}
-              <div className="card-header">
-                <div style={{display:'flex', flexDirection:'column', gap:'5px'}}>
-                    {/* CAMBIO: Muestra el ID del sendero explícitamente */}
-                    <span className="path-id-tag">SENDERO {path.id}</span>
-                    <span style={{color:'#f1c40f', fontSize:'0.9rem', fontWeight:'bold'}}>
-                        {path.letter.toUpperCase()}
-                    </span>
+          {activePaths.map((path) => {
+            // FIX: Obtenemos el color dinámico del sendero/letra
+            const pathColor = getActiveColor(path.hebrew_char);
+            
+            // Verificamos si el color es muy oscuro para ajustar el brillo del texto si es necesario
+            const isDark = pathColor.includes('0, 0, 0') || pathColor.includes('10, 10, 10');
+            const displayColor = isDark ? '#ffffff' : pathColor;
+
+            return (
+              <div 
+                key={path.id} 
+                className="path-card"
+                // INYECCIÓN DE VARIABLE CSS: Esto permite usar el color en el CSS
+                style={{ '--path-color': displayColor }}
+              >
+                
+                {/* 1. CABECERA */}
+                <div className="path-header-strip">
+                  <div className="path-id-block">
+                      {/* Color dinámico aplicado al label */}
+                      <span className="path-label" style={{ color: displayColor }}>
+                        SENDERO {path.id}
+                      </span>
+                      <span className="path-letter-name">{path.letter.toUpperCase()}</span>
+                  </div>
+                  <div className="hebrew-glyph" style={{ textShadow: `0 0 15px ${displayColor}` }}>
+                    {path.hebrew_char}
+                  </div>
                 </div>
-                <span className="hebrew-large">{path.hebrew_char}</span>
-              </div>
 
-              {/* VISUALIZACIÓN SEFIRÓTICA (MEJORADA) */}
-              <div className="sefirot-visual">
+                <div className="path-body">
                   
-                  {/* Origen */}
-                  <div className="sefira-node">
-                      <div className="orb source" title={path.source?.name_app}></div>
-                      <span className="node-name">{path.source?.name_he}</span>
-                      <span className="node-desc">{path.source?.name_app}</span>
+                  {/* 2. DIAGRAMA DE FLUJO SEFIRÓTICO */}
+                  <div className="sefirot-diagram">
+                      {/* Origen */}
+                      <div className="node-wrapper">
+                          <div 
+                            className="orb" 
+                            style={{ background: path.source?.color, boxShadow: `0 0 15px ${path.source?.color}44` }}
+                          ></div>
+                          <span className="node-title">{path.source?.name_he}</span>
+                          <span className="node-sub">{path.source?.name_app}</span>
+                      </div>
+                      
+                      {/* Conector (Ahora usa el color del sendero) */}
+                      <div className="flow-line"></div>
+                      
+                      {/* Destino */}
+                      <div className="node-wrapper">
+                          <div 
+                            className="orb" 
+                            style={{ background: path.target?.color, boxShadow: `0 0 15px ${path.target?.color}44` }}
+                          ></div>
+                          <span className="node-title">{path.target?.name_he}</span>
+                          <span className="node-sub">{path.target?.name_app}</span>
+                      </div>
                   </div>
 
-                  {/* Flecha de flujo */}
-                  <div className="flow-arrow">►</div>
+                  {/* 3. TABLA DE DIAGNÓSTICO */}
+                  {path.tikkun && (
+                      <div className="diagnostic-grid">
+                          <div className="diag-cell">
+                              <div className="diag-header shadow">SOMBRA (EGO)</div>
+                              <div className="diag-content">
+                                  {path.tikkun.shadow}
+                              </div>
+                          </div>
+                          <div className="diag-cell">
+                              <div className="diag-header light">LUZ (RECTIFICACIÓN)</div>
+                              <div className="diag-content">
+                                  {path.tikkun.light}
+                              </div>
+                          </div>
+                      </div>
+                  )}
 
-                  {/* Destino */}
-                  <div className="sefira-node">
-                      <div className="orb target" title={path.target?.name_app}></div>
-                      <span className="node-name">{path.target?.name_he}</span>
-                      <span className="node-desc">{path.target?.name_app}</span>
+                  {/* 4. TOOL / FUNCIÓN */}
+                  <div className="tool-box" style={{ borderLeftColor: displayColor }}>
+                      <span className="tool-label" style={{ color: displayColor }}>TOOL:</span>
+                      {path.app_function}
                   </div>
 
+                </div>
               </div>
-
-              {/* FUNCIÓN */}
-              <div className="function-box">
-                <span className="function-label">FUNCIÓN DE REPARACIÓN (TOOL):</span>
-                <span className="function-text">{path.app_function}</span>
-              </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

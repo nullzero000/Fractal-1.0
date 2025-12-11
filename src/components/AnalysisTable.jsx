@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Styles/AnalysisTable.css';
 
-const AnalysisTable = ({ levels }) => {
+// Recibimos activeLevel
+const AnalysisTable = ({ levels, activeLevel }) => {
+  const [hoveredLevel, setHoveredLevel] = useState(null);
+
   if (!levels || levels.length === 0) return null;
 
+  // Lógica de Prioridad:
+  // 1. Si el usuario hace Hover en la tabla -> Muestra Hover.
+  // 2. Si no, muestra el Nivel seleccionado en el Tactical (activeLevel).
+  // 3. Si falla, muestra el Final.
+  
+  const selectedLevelData = levels.find(l => l.level === activeLevel);
   const finalLevel = levels[levels.length - 1];
+  
+  const displayData = hoveredLevel || selectedLevelData || finalLevel;
 
   return (
     <div className="analysis-container">
-      <h3 className="analysis-title">DIAGNÓSTICO FRACTAL (CUANTITATIVO)</h3>
+      <h3 className="analysis-title">AXIS 13 (DIAGNÓSTICO CUANTITATIVO)</h3>
       
       <div className="table-wrapper">
         <table className="miluy-table">
@@ -21,21 +32,37 @@ const AnalysisTable = ({ levels }) => {
             </tr>
           </thead>
           <tbody>
-            {levels.map((lvl) => (
-              <tr key={lvl.level}>
-                <td className="level-cell">NIVEL {lvl.level}</td>
-                <td style={{color: '#666'}}>{lvl.chars.length}</td>
-                <td className="value-cell">{lvl.totalValue}</td>
-                <td className="reduced-cell">{lvl.reducedValue}</td>
-              </tr>
-            ))}
+            {levels.map((lvl) => {
+              // Determinamos si esta fila está activa (ya sea por hover o por selección en tactical)
+              const isActive = (hoveredLevel && hoveredLevel.level === lvl.level) || 
+                               (!hoveredLevel && activeLevel === lvl.level);
+
+              return (
+                <tr 
+                  key={lvl.level}
+                  onMouseEnter={() => setHoveredLevel(lvl)}
+                  onMouseLeave={() => setHoveredLevel(null)}
+                  className={isActive ? 'active-row' : ''}
+                >
+                  <td className="level-cell">NIVEL {lvl.level}</td>
+                  <td style={{color: '#aaa'}}>{lvl.chars.length}</td>
+                  <td className="value-cell">{lvl.totalValue}</td>
+                  <td className="reduced-cell">{lvl.reducedValue}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
       <div className="summary-box">
-        <span>VIBRACIÓN DEL EJE:</span>
-        <span className="final-number">{finalLevel.reducedValue}</span>
+        <span>
+            VIBRACIÓN ACTIVA (NIVEL {displayData.level}):
+        </span>
+        
+        <span className="final-number">
+            {displayData.reducedValue}
+        </span>
       </div>
     </div>
   );
