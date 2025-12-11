@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { analyzeFrequencyAndColor, parseRGB } from '../utils/spectralEngine'; // Importamos parseRGB
-import { getSemanticsFromRGB } from '../utils/colorNamer'; // Importamos el Namer
+import { analyzeFrequencyAndColor, parseRGB } from '../utils/spectralEngine'; 
+import { getSemanticsFromRGB } from '../utils/colorNamer'; 
 import '../Styles/TacticalReadout.css';
 
 const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
@@ -16,13 +16,13 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
 
   const { dominantData, frequencyMap, mixedColor } = analysis;
   
-  // 1. OBTENER DATOS DEL COLOR PROMEDIO (Para que coincida con el Monitor)
   const [r, g, b] = parseRGB(mixedColor);
   const colorName = getSemanticsFromRGB(r, g, b);
   const rgbString = `${r}, ${g}, ${b}`;
-
-  // 2. USAR EL COLOR PROMEDIO COMO BASE (Sincronicidad visual)
   const baseColor = mixedColor; 
+
+  // Datos Toráicos de la letra dominante
+  const torahData = dominantData.torah || { word: '?', phonetic: '?', cite: '?', bio: '?' };
 
   const sortedLetters = Object.keys(frequencyMap).sort((a, b) => frequencyMap[b] - frequencyMap[a]);
   const top5 = sortedLetters.slice(0, 5);
@@ -45,7 +45,6 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
   };
 
   return (
-    // Pasamos el mixedColor (baseColor) al CSS
     <div className="tactical-container" style={{ '--base-color': baseColor }}>
       
       <div className="tactical-nav">
@@ -62,7 +61,6 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
 
       <div className="tactical-content">
         
-        {/* NUEVO: INDICADOR DE RESONANCIA CROMÁTICA */}
         <div style={{ textAlign: 'center', marginBottom: '20px' }}>
             <span style={{ 
                 fontSize: '0.7rem', 
@@ -81,7 +79,6 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
         <div className="golden-section">
           {top5.map((char, i) => {
             const size = Math.max(1.5, BASE_SIZE / Math.pow(GOLDEN_RATIO, i));
-            // Las letras siguen usando SU color individual (getActiveColor)
             const color = getActiveColor(char);
             
             return (
@@ -106,6 +103,29 @@ const TacticalReadout = ({ levels, getActiveColor, colorSystem }) => {
         <div className="text-body">
           {dominantData?.energy}
         </div>
+
+        {/* --- NUEVO BLOQUE: ORIGEN TORÁICO --- */}
+        <div className="torah-block">
+            <div className="torah-header">ORIGEN DE EJE (TORÁ & BIO)</div>
+            <div className="torah-grid">
+                <div className="torah-word-box">
+                    {/* RTL CRÍTICO */}
+                    <span className="hebrew-origin" dir="rtl" lang="he">{torahData.word}</span>
+                    <span className="phonetic-origin">{torahData.phonetic}</span>
+                </div>
+                <div className="torah-meta-box">
+                    <div className="meta-row">
+                        <span className="meta-label">CITA:</span>
+                        <span className="meta-val">{torahData.cite}</span>
+                    </div>
+                    <div className="meta-row">
+                        <span className="meta-label">BIO:</span>
+                        <span className="meta-val highlight">{torahData.bio}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
       </div>
     </div>
   );
