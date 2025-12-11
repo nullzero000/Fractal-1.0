@@ -2,13 +2,14 @@ import React, { useState, useMemo } from 'react';
 
 // Lógica
 import { calculateMiluyLevels } from './utils/calculations';
-import { HEBREW_DATA, DEFAULT_COLOR_SYSTEM } from './data/constants'; // FIX: Importamos el Default
+import { HEBREW_DATA, DEFAULT_COLOR_SYSTEM } from './data/constants';
 
 // Componentes
 import HebrewKeyboard from './components/HebrewKeyboard';
 import TacticalReadout from './components/TacticalReadout';
 import FractalMonitor from './components/FractalMonitor';
 import AnalysisTable from './components/AnalysisTable';
+import PathMonitor from './components/PathMonitor';
 
 // Estilos
 import './App.css';
@@ -16,10 +17,13 @@ import './App.css';
 const App = () => {
   const [inputText, setInputText] = useState('');
   
-  // FIX CRÍTICO: Usamos la constante importada ('ari')
+  // Usamos la constante importada 'ari' como default
   const [colorSystem, setColorSystem] = useState(DEFAULT_COLOR_SYSTEM);
   
   const [showResults, setShowResults] = useState(false);
+  
+  // Control del Nivel Activo (Sincronización Tactical <-> Tabla)
+  const [activeLevel, setActiveLevel] = useState(0);
 
   const handleKeyPress = (char) => {
     if (char === 'BACKSPACE') {
@@ -33,11 +37,11 @@ const App = () => {
     return calculateMiluyLevels(inputText);
   }, [inputText]);
 
+  // FUNCIÓN MAESTRA DE COLOR (La que faltaba en PathMonitor)
   const getActiveColor = (char) => {
     if (!char) return 'transparent';
     const data = HEBREW_DATA[char];
     if (!data || !data.palettes) return '#555';
-    // Fallback seguro
     return data.palettes[colorSystem] || data.palettes['gd'];
   };
   
@@ -49,6 +53,7 @@ const App = () => {
   const handleAnalyze = () => {
       if (inputText.length > 0) {
           setShowResults(true);
+          setActiveLevel(0); // Reset a raíz
           setTimeout(() => {
               const el = document.getElementById('results-anchor');
               if(el) el.scrollIntoView({ behavior: 'smooth' });
@@ -68,7 +73,6 @@ const App = () => {
             onChange={(e) => setColorSystem(e.target.value)}
             className="bio-select"
           >
-            {/* Lurian (ARI) es el primero por diseño */}
             <option value="ari">LURIAN (ARI)</option>
             <option value="ort">ORTHODOX (INK)</option>
             <option value="akashic">AKASHIC (RGB)</option>
@@ -116,13 +120,26 @@ const App = () => {
 
       <div id="results-anchor" className={`results-popout ${showResults ? 'visible' : ''}`}>
         
+        {/* 1. TACTICAL READOUT */}
         <TacticalReadout 
             levels={levels} 
+            activeLevel={activeLevel}
+            onLevelSelect={setActiveLevel}
             getActiveColor={getActiveColor}
             colorSystem={colorSystem}
         />
         
-        <AnalysisTable levels={levels} />
+        {/* 2. MONITOR DE SENDEROS (FIX: Ahora recibe getActiveColor) */}
+        <PathMonitor 
+            inputString={inputText} 
+            getActiveColor={getActiveColor} 
+        />
+        
+        {/* 3. TABLA DE ANÁLISIS */}
+        <AnalysisTable 
+            levels={levels} 
+            activeLevel={activeLevel} 
+        />
           
         <FractalMonitor 
             levels={levels} 
@@ -131,7 +148,7 @@ const App = () => {
       </div>
 
       <footer className="terminal-footer">
-        <p>EJE 13 / MODULAR SYSTEM v3.3</p>
+        <p>EJE 13 / MODULAR SYSTEM v3.6</p>
       </footer>
     </div>
   );
